@@ -1,8 +1,7 @@
-// BarChart.js
 import * as d3 from 'd3';
 import React, { useRef, useEffect } from 'react';
 
-function BarChart({ width, height, data }) {
+function BarChartD3({ width, height, data }) {
   const ref = useRef();
 
   useEffect(() => {
@@ -59,4 +58,4 @@ function BarChart({ width, height, data }) {
   );
 }
 
-export default BarChart;
+export default BarChartD3;
