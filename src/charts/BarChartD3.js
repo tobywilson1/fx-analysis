@@ -12,7 +12,7 @@ function BarChartD3({ width, height, data }) {
   }, []);
 
   useEffect(() => {
-    draw();
+    data && draw();
   }, [data, width, height]);
 
   const draw = () => {

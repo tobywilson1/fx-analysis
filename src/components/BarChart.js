@@ -6,14 +6,7 @@ import { getFx } from '../actions/fxActions';
 //var i = 0;
 
 function BarChart({ chartData, getFx }) {
-  chartData = chartData === undefined ? null : chartData;
-  //   const [data, setData] = useState([]);
-
-  //   useEffect(() => {
-  //     changeData();
-  //   }, []);
-
-  console.log(chartData);
+  //console.log(chartData);
   useEffect(() => {
     getFx();
   }, []);
