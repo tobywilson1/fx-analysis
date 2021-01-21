@@ -16,7 +16,6 @@ function BarChart({ chartData, getFx }) {
   //     if (i === datas.length) i = 0;
   //   };
 
-  //return <div>hello</div>;
   return <BarChartD3 width={600} height={400} data={chartData} />;
 }
 

@@ -1,3 +1,6 @@
 {
-  "fxData": [{ "id": 1, "timeSeries": [10, 30, 40, 20] }]
+  "fxData": [
+    { "id": 1, "timeSeries": [10, 30, 40, 20] },
+    { "id": 2, "timeSeries": [30, 50, 10, 20] }
+  ]
 }
