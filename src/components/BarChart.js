@@ -41,12 +41,12 @@ function BarChart({
     return () => {
       window.removeEventListener('resize', resizeFunc, false);
     };
-  }, []);
+  }, [updateChartDims]);
 
   //update chart data
   useEffect(() => {
     getFx();
-  }, []);
+  }, [getFx]);
 
   return (
     <div ref={chartRef} className='chartArea'>

@@ -1,6 +1,6 @@
 import { GET_FX, FX_ERROR, SET_LOADING, CHART_RESIZE } from '../actions/types';
 
-export default (state, action) => {
+const fxReducer = (state, action) => {
   switch (action.type) {
     case GET_FX:
       return {
@@ -29,3 +29,5 @@ export default (state, action) => {
       return state;
   }
 };
+
+export default fxReducer;

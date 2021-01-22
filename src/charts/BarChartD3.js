@@ -5,11 +5,15 @@ function BarChartD3({ width = 100, height = 100, data }) {
   const ref = useRef();
 
   useEffect(() => {
-    d3.select(ref.current).attr('width', width).attr('height', height);
+    d3.select(ref.current)
+      .attr('width', width)
+      .attr('height', height)
+      .style('border', '1px solid black');
   }, [width, height]);
 
   useEffect(() => {
     data && draw();
+    // eslint-disable-next-line
   }, [data, width, height]);
 
   const draw = () => {
