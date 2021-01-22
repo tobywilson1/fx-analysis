@@ -4,16 +4,19 @@ import { connect } from 'react-redux';
 import { getFx, updateChartDims } from '../actions/fxActions';
 
 const resizeChart = (chartRef, updateChartDims) => {
-  const gridSection = chartRef.current.parentNode;
+  const chartArea = chartRef.current;
 
-  //get size of the parent grid section
-  const styles = getComputedStyle(gridSection);
-  const parentWidth = parseInt(styles.getPropertyValue('width'), 10);
-  const parentHeight = parseInt(styles.getPropertyValue('height'), 10);
+  //get size of the chartArea
+  const styles = getComputedStyle(chartArea);
+  const width = parseFloat(styles.width);
+  const height = parseFloat(styles.height);
+
+  console.log('width', styles.width);
+  console.log('height', styles.height);
 
   //save the dimensions to the windows object -- need to refactor this
-  window.fxChart.width = parentWidth;
-  window.fxChart.height = parentHeight;
+  window.fxChart.width = width;
+  window.fxChart.height = height;
 
   //console.log(parentWidth, parentHeight);
 

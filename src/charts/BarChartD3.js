@@ -52,7 +52,7 @@ function BarChartD3({ width = 100, height = 100, data }) {
   };
 
   return (
-    <div className='chart'>
+    <div>
       <svg ref={ref}></svg>
     </div>
   );
