@@ -1,13 +1,13 @@
 import { GET_FX, FX_ERROR, SET_LOADING, CHART_RESIZE } from './types';
 
 //Get fx from server
-export const getFx = () => async (dispatch) => {
+export const getFx = (fxPair = 'GBPUSD') => async (dispatch) => {
   try {
     dispatch({
       type: SET_LOADING,
     });
 
-    const res = await fetch('/fxData/1');
+    const res = await fetch(`/fxData/${fxPair}`);
     const data = await res.json();
 
     dispatch({
