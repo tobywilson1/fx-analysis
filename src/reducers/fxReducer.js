@@ -22,8 +22,8 @@ export default (state, action) => {
     case CHART_RESIZE:
       return {
         ...state,
-        chartWidth: action.payload.width,
-        chartHeight: action.payload.height,
+        chartWidth: action.payload.width - 20,
+        chartHeight: action.payload.height - 20,
       };
     default:
       return state;

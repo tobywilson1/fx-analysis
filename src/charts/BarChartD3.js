@@ -9,7 +9,7 @@ function BarChartD3({ width = 100, height = 100, data }) {
       .attr('width', width)
       .attr('height', height)
       .style('border', '1px solid black');
-  }, []);
+  }, [width, height]);
 
   useEffect(() => {
     data && draw();
