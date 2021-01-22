@@ -3,8 +3,6 @@ import { GET_FX, FX_ERROR, SET_LOADING } from './types';
 // //Get fx from server
 export const getFx = () => async (dispatch) => {
   try {
-    // setLoading();
-
     dispatch({
       type: SET_LOADING,
     });
@@ -23,10 +21,3 @@ export const getFx = () => async (dispatch) => {
     });
   }
 };
-
-//Set loading to true
-// export const setLoading = (dispatch) => {
-//   dispatch({
-//     type: SET_LOADING,
-//   });
-// };

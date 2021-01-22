@@ -1,16 +1,21 @@
 import React from 'react';
-import './App.css';
 import BarChart from './components/BarChart';
+import Header from './components/Header';
 import { Provider } from 'react-redux';
 import store from './store';
 
 function App() {
   return (
     <Provider store={store}>
-      <div className='App'>
-        <h2>FX analysis</h2>
-        <BarChart />
-      </div>
+      <Header />
+      <main>
+        <div className='row'>
+          <div className='col-2-of-3 border'>
+            <BarChart />
+          </div>
+          <div className='col-1-of-3 border'>Filter</div>
+        </div>
+      </main>
     </Provider>
   );
 }
