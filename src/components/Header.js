@@ -2,9 +2,11 @@ import React from 'react';
 
 const Header = () => {
   return (
-    <header className='header'>
-      <h1 className='heading-primary'>FX analysis</h1>
-    </header>
+    <div className='row fx-header'>
+      <div className='col s12 center-align'>
+        <h1 className='fx-title'>FX analysis</h1>
+      </div>
+    </div>
   );
 };
 
