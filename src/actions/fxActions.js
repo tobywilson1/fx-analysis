@@ -1,6 +1,6 @@
 import { GET_FX, FX_ERROR, SET_LOADING } from './types';
 
-// //Get fx from server
+//Get fx from server
 export const getFx = () => async (dispatch) => {
   try {
     dispatch({
@@ -21,3 +21,13 @@ export const getFx = () => async (dispatch) => {
     });
   }
 };
+
+//Resize chart for window resize
+// export const updateChartDims = () => async (dispatch) => {
+
+//     dispatch({
+//       type: FX_ERROR,
+//       payload: error.response.statusText,
+//     });
+
+// };

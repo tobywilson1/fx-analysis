@@ -1,17 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import BarChartD3 from '../charts/BarChartD3';
 import { connect } from 'react-redux';
 import { getFx } from '../actions/fxActions';
 
-function BarChart({ chartData, chartWidth, chartHeight, getFx }) {
-  //console.log(chartData);
+const resizeChart = (chartRef) => {
+  const gridSection = chartRef.current.parentNode;
 
+  //get size of the parent grid section
+  const styles = getComputedStyle(gridSection);
+  const parentWidth = parseInt(styles.getPropertyValue('width'), 10);
+  const parentHeight = parseInt(styles.getPropertyValue('height'), 10);
+
+  //position the particle origin at centre of canvas
+  // window.fxChart.width = parentWidth;
+  // window.fxChart.height = parentHeight;
+
+  console.log(parentWidth, parentHeight);
+};
+
+function BarChart({ chartData, chartWidth, chartHeight, getFx }) {
+  const chartRef = useRef(null);
+
+  //init
+  useEffect(() => {
+    window.fxChart = {};
+    resizeChart(chartRef);
+    const resizeFunc = resizeChart.bind(null, chartRef);
+    window.addEventListener('resize', resizeFunc, false);
+    return () => {
+      window.removeEventListener('resize', resizeFunc, false);
+    };
+  }, []);
+
+  //update chart data
   useEffect(() => {
     getFx();
   }, []);
 
   return (
-    <div className='chartArea'>
+    <div ref={chartRef} className='chartArea'>
       <BarChartD3 width={chartWidth} height={chartHeight} data={chartData} />
     </div>
   );
@@ -26,41 +53,3 @@ const mapStateToProps = (state) => ({
 
 //any actions added to props via second parameter
 export default connect(mapStateToProps, { getFx })(BarChart);
-
-// const useCanvas = () => {
-//   const canvasRef = useRef(null);
-
-//   useEffect(() => {
-//     const canvas = canvasRef.current;
-//     const ctx = canvas.getContext('2d');
-//     let animationFrameId;
-
-//     //initialise animation and retrieve callback functions to pass to animation frame
-//     const { callback, resizeFunc, mousemoveFunc } = canvasInit(canvasRef);
-
-//     const render = () => {
-//       ctx.clearRect(0, 0, canvas.width, canvas.height);
-//       callback();
-//       animationFrameId = window.requestAnimationFrame(
-//         render.bind(null, callback)
-//       );
-//     };
-//     render();
-
-//     //tidy up objects on unmounting of component
-//     return () => {
-//       window.cancelAnimationFrame(animationFrameId);
-//       window.removeEventListener('resize', resizeFunc, false);
-//       window.removeEventListener('mousemove', mousemoveFunc);
-//     };
-//   }, []);
-
-//   return canvasRef;
-// };
-
-// export const Animation = (props) => {
-//   const { draw, ...rest } = props;
-//   const canvasRef = useCanvas(draw);
-
-//   return <canvas ref={canvasRef} {...rest} />;
-// };
