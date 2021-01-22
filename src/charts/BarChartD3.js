@@ -5,10 +5,7 @@ function BarChartD3({ width = 100, height = 100, data }) {
   const ref = useRef();
 
   useEffect(() => {
-    d3.select(ref.current)
-      .attr('width', width)
-      .attr('height', height)
-      .style('border', '1px solid black');
+    d3.select(ref.current).attr('width', width).attr('height', height);
   }, [width, height]);
 
   useEffect(() => {

@@ -11,8 +11,8 @@ const resizeChart = (chartRef, updateChartDims) => {
   const width = parseFloat(styles.width);
   const height = parseFloat(styles.height);
 
-  console.log('width', styles.width);
-  console.log('height', styles.height);
+  // console.log('width', styles.width);
+  // console.log('height', styles.height);
 
   //save the dimensions to the windows object -- need to refactor this
   window.fxChart.width = width;
