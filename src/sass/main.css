@@ -54,6 +54,10 @@ body {
   border: solid 1px black;
 }
 
+.chartArea {
+  height: 50rem;
+}
+
 .row {
   max-width: 114rem;
   margin: 0 auto;
