@@ -1,13 +1,6 @@
 import { GET_FX, FX_ERROR, SET_LOADING } from '../actions/types';
 
-const initialState = {
-  chartData: null,
-  current: null,
-  loading: false,
-  error: null,
-};
-
-export default (state = initialState, action) => {
+export default (state, action) => {
   switch (action.type) {
     case GET_FX:
       return {

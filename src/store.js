@@ -3,7 +3,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
-const initialState = {};
+const initialState = {
+  chartData: null,
+  chartWidth: 600,
+  chartHeight: 400,
+  current: null,
+  loading: false,
+  error: null,
+};
 
 const middleware = [thunk];
 

@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import React, { useRef, useEffect } from 'react';
 
-function BarChartD3({ width, height, data }) {
+function BarChartD3({ width = 100, height = 100, data }) {
   const ref = useRef();
 
   useEffect(() => {
