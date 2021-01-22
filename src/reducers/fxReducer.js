@@ -1,4 +1,4 @@
-import { GET_FX, FX_ERROR, SET_LOADING } from '../actions/types';
+import { GET_FX, FX_ERROR, SET_LOADING, CHART_RESIZE } from '../actions/types';
 
 export default (state, action) => {
   switch (action.type) {
@@ -18,6 +18,12 @@ export default (state, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+    case CHART_RESIZE:
+      return {
+        ...state,
+        chartWidth: action.payload.width,
+        chartHeight: action.payload.height,
       };
     default:
       return state;
