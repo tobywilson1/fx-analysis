@@ -1,6 +1,8 @@
 import { GET_FX, FX_ERROR, SET_LOADING, CHART_RESIZE } from './types';
 import store from '../store';
 
+const FX_URL = process.env.REACT_APP_FX_URL;
+
 //Get fx from server
 export const getFx = (fxPair) => async (dispatch) => {
   try {
@@ -13,7 +15,7 @@ export const getFx = (fxPair) => async (dispatch) => {
       fxPair = store.getState().fxPair;
     }
 
-    const res = await fetch(`/fxData/${fxPair}`);
+    const res = await fetch(`${FX_URL}${fxPair}`);
     const data = await res.json();
 
     dispatch({

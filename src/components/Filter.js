@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { getFx } from '../actions/fxActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 const Filter = ({ fxPair, getFx }) => {
   const selectRef = useRef(null);
-  //const [fxPair, setFxPair] = useState('');
 
   useEffect(() => {
     //Init Materialize JS
