@@ -1,6 +1,8 @@
 # fx-analysis
 
-Sources fx data from a REST API and displays in a D3 chart based on user-entered filters e.g. fx pair.
+Sources fx data asynchronously from a REST API and displays in a D3 chart based on user-entered filters e.g. fx pair.
+
+---
 
 ### Version: 1.0.0
 
@@ -8,10 +10,13 @@ Sources fx data from a REST API and displays in a D3 chart based on user-entered
 
 ### 🌟 Features & technologies
 
-- Sources FX data from a REST API via asynchronous request.
-- D3 chart can be defined on a standalone basis.
-- State management using Redux.
+- Sources FX data from a REST API via asynchronous requests.
+- D3 chart updates when response is received back.
 - React component-based UI
+- D3 chart is defined independently of React component.
+- State management using Redux.
+
+---
 
 ### ⚙ Installation & Running
 
