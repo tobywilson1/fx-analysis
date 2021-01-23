@@ -15,11 +15,12 @@ export const getFx = (fxPair) => async (dispatch) => {
       fxPair = store.getState().fxPair;
     }
 
-    console.log(`${FX_URL}${fxPair}`);
-    const res = await fetch(`${FX_URL}${fxPair}`, {
+    const fullURL = `${FX_URL}${fxPair}`;
+    const res = await fetch(fullURL, {
       mode: 'no-cors',
     });
     console.log(`res=${res}`);
+    //debugger;
     const data = await res.json();
     console.log(`data=${data}`);
 
