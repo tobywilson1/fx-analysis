@@ -15,8 +15,13 @@ export const getFx = (fxPair) => async (dispatch) => {
       fxPair = store.getState().fxPair;
     }
 
-    const res = await fetch(`${FX_URL}${fxPair}`);
+    console.log(`${FX_URL}${fxPair}`);
+    const res = await fetch(`${FX_URL}${fxPair}`, {
+      mode: 'no-cors',
+    });
+    console.log(`res=${res}`);
     const data = await res.json();
+    console.log(`data=${data}`);
 
     dispatch({
       type: GET_FX,
@@ -25,7 +30,7 @@ export const getFx = (fxPair) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: FX_ERROR,
-      payload: error.response.statusText,
+      payload: String(error),
     });
   }
 };

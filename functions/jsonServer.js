@@ -4,7 +4,13 @@ const fileData = require('../db.json');
 exports.handler = async (event, context) => {
   // Only allow GET
   if (event.httpMethod !== 'GET') {
-    return { statusCode: 405, body: 'Only GET allowed!' };
+    return {
+      statusCode: 405,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status: 'Only GET allowed!' }),
+    };
   }
 
   //obtain fx pair as basename of path
@@ -14,6 +20,9 @@ exports.handler = async (event, context) => {
 
   return {
     statusCode: 200,
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(returnData),
   };
 };
