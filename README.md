@@ -1,26 +1,40 @@
-## Available Scripts
+# fx-analysis
 
-In the project directory, you can run:
+Sources fx data from a REST API and displays in a D3 chart based on user-entered filters e.g. fx pair.
 
-### `npm start`
+### Version: 1.0.0
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 🌟 Features & technologies
 
-### `npm test`
+- Sources FX data from a REST API via asynchronous request.
+- D3 chart can be defined on a standalone basis.
+- State management using Redux.
+- React component-based UI
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### ⚙ Installation & Running
 
-### `npm run build`
+```sh
+$ npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+$ npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🤔 How to use it?
+
+#### 1. Configure URL of REST API
+
+Update the .env file in the root directory.
+
+#### 2. Define structure of data in db.json file
+
+This can be used as a test file served by json-server fake API.
+
+#### 3. D3 charts
+
+D3 charts are saved in the src/charts directory.
