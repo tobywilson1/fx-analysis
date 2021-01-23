@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
 const initialState = {
+  fxPair: 'GBPUSD',
   chartData: null,
   chartWidth: 600,
   chartHeight: 400,

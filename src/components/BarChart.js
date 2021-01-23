@@ -45,7 +45,7 @@ function BarChart({
 
   //update chart data
   useEffect(() => {
-    getFx();
+    getFx(null); //refresh existing fx pair
   }, [getFx]);
 
   return (

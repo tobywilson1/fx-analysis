@@ -5,7 +5,8 @@ const fxReducer = (state, action) => {
     case GET_FX:
       return {
         ...state,
-        chartData: action.payload,
+        fxPair: action.payload.fxPair,
+        chartData: action.payload.timeSeries,
         loading: false,
       };
     case SET_LOADING:
