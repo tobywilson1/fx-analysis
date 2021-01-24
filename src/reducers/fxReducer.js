@@ -1,4 +1,10 @@
-import { GET_FX, FX_ERROR, SET_LOADING, CHART_RESIZE } from '../actions/types';
+import {
+  GET_FX,
+  FX_ERROR,
+  SET_LOADING,
+  CHART_RESIZE,
+  SELECT_REPORT,
+} from '../actions/types';
 
 const fxReducer = (state, action) => {
   switch (action.type) {
@@ -25,6 +31,11 @@ const fxReducer = (state, action) => {
         ...state,
         chartWidth: action.payload.width - 10,
         chartHeight: action.payload.height - 10,
+      };
+    case SELECT_REPORT:
+      return {
+        ...state,
+        report: action.payload,
       };
     default:
       return state;

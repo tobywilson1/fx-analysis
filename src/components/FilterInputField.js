@@ -1,7 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const FilterInputField = ({ labelText, inputFieldValue, onChangeFunc }) => {
+const FilterInputField = ({
+  labelText,
+  inputFieldValue,
+  onChangeFunc,
+  optionValues,
+}) => {
   const selectRef = useRef(null);
 
   useEffect(() => {
@@ -16,8 +21,11 @@ const FilterInputField = ({ labelText, inputFieldValue, onChangeFunc }) => {
   return (
     <div className='input-field col s12'>
       <select ref={selectRef} value={inputFieldValue} onChange={onChange}>
-        <option value='GBPUSD'>GBPUSD</option>
-        <option value='GBPEUR'>GBPEUR</option>
+        {optionValues.map((item) => (
+          <option key={item} value={item}>
+            {item}
+          </option>
+        ))}
       </select>
       <label>{labelText}</label>
     </div>

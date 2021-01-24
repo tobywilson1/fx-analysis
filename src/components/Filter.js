@@ -1,27 +1,32 @@
 import React from 'react';
 import FilterInputField from './FilterInputField';
 import { connect } from 'react-redux';
-import { getFx } from '../actions/fxActions';
+import { getFx, selectReport } from '../actions/fxActions';
 
-const Filter = ({ fxPair, getFx }) => {
+const Filter = ({ report, selectReport, fxPair, getFx }) => {
   return (
     <>
       <FilterInputField
-        labelText='FX pair'
-        inputFieldValue={fxPair}
-        onChangeFunc={getFx}
+        labelText='Report'
+        inputFieldValue={report}
+        onChangeFunc={selectReport}
+        optionValues={['Test', 'FrAPI']}
       />
       <FilterInputField
         labelText='FX pair'
         inputFieldValue={fxPair}
         onChangeFunc={getFx}
+        optionValues={['GBPUSD', 'GBPEUR']}
       />
     </>
   );
 };
 
 //the bits of the state we want to add into props
-const mapStateToProps = (state) => ({ fxPair: state.fxPair });
+const mapStateToProps = (state) => ({
+  report: state.report,
+  fxPair: state.fxPair,
+});
 
 //any actions added to props via second parameter
-export default connect(mapStateToProps, { getFx })(Filter);
+export default connect(mapStateToProps, { getFx, selectReport })(Filter);
