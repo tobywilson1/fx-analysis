@@ -14,7 +14,7 @@ const Filter = ({ report, selectReport }) => {
         onChangeFunc={selectReport}
         optionValues={['Test', 'FrAPI']}
       />
-      <FilterInputFieldWrapper report={report} filterId='filter1' />
+      <FilterInputFieldWrapper report={report} />
     </>
   );
 };

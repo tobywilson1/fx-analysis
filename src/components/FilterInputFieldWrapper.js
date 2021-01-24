@@ -5,29 +5,37 @@ import * as fxActions from '../actions/fxActions';
 import filters from '../config.json';
 import store from '../store';
 
-const FilterInputFieldWrapper = ({ report, filterId, ...rest }) => {
-  const labelText = filters[report][filterId].labelText;
-  const optionValues = filters[report][filterId].optionValues;
-  const onChangeFunc = rest[filters[report][filterId].onChangeFunc];
-  const { fxPair } = rest;
+const FilterInputFieldWrapper = ({ report, ...rest }) => {
+  const inputFieldArray = filters[report].filters;
 
-  return (
-    <FilterInputField
-      report={report}
-      labelText={labelText}
-      inputFieldValue={fxPair}
-      onChangeFunc={onChangeFunc}
-      optionValues={optionValues}
-    />
-  );
+  const result = inputFieldArray.map((filter) => {
+    const labelText = filter.labelText;
+    const optionValues = filter.optionValues;
+    const onChangeFunc = rest[filter.onChangeFunc];
+    const inputFieldValue = rest[filter.inputFieldValue];
+    const id = filter.id;
+
+    return (
+      <FilterInputField
+        key={id}
+        report={report}
+        labelText={labelText}
+        inputFieldValue={inputFieldValue}
+        onChangeFunc={onChangeFunc}
+        optionValues={optionValues}
+      />
+    );
+  });
+
+  return result;
 };
 
 //the bits of the state we want to add into props
 const mapStateToProps = (state) => {
-  const report = state.report;
-  const key = filters[report].filter1.inputFieldValue;
+  //const key = filters[report].filters[0].inputFieldValue;
   return {
-    key: state[key],
+    //key: state[key],
+    ...state,
   };
 };
 
