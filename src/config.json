@@ -1,0 +1,20 @@
+{
+  "FrAPI": {
+    "url": "xxx",
+    "filter1": {
+      "labelText": "FX pairs",
+      "optionValues": ["GBPUSD", "GBPEUR", "GBPCHF"],
+      "inputFieldValue": "fxPair",
+      "onChangeFunc": "getFx"
+    }
+  },
+  "Test": {
+    "url": "xxx",
+    "filter1": {
+      "labelText": "FX pair",
+      "optionValues": ["GBPUSD", "GBPEUR"],
+      "inputFieldValue": "fxPair",
+      "onChangeFunc": "getFx"
+    }
+  }
+}

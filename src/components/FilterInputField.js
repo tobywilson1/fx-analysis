@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 const FilterInputField = ({
+  report,
   labelText,
   inputFieldValue,
   onChangeFunc,
@@ -12,7 +13,7 @@ const FilterInputField = ({
   useEffect(() => {
     //Init Materialize JS
     M.FormSelect.init(selectRef.current);
-  }, [inputFieldValue]);
+  }, [inputFieldValue, report]);
 
   const onChange = async (e) => {
     onChangeFunc(e.target.value);

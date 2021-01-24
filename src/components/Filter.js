@@ -1,22 +1,25 @@
 import React from 'react';
 import FilterInputField from './FilterInputField';
 import { connect } from 'react-redux';
-import { getFx, selectReport } from '../actions/fxActions';
+import * as fxActions from '../actions/fxActions';
+import filters from '../config.json';
 
 const Filter = ({ report, selectReport, fxPair, getFx }) => {
   return (
     <>
       <FilterInputField
+        report={report}
         labelText='Report'
         inputFieldValue={report}
         onChangeFunc={selectReport}
         optionValues={['Test', 'FrAPI']}
       />
       <FilterInputField
-        labelText='FX pair'
+        report={report}
+        labelText={filters[report].filter1.labelText}
         inputFieldValue={fxPair}
         onChangeFunc={getFx}
-        optionValues={['GBPUSD', 'GBPEUR']}
+        optionValues={filters[report].filter1.optionValues}
       />
     </>
   );
@@ -29,4 +32,7 @@ const mapStateToProps = (state) => ({
 });
 
 //any actions added to props via second parameter
-export default connect(mapStateToProps, { getFx, selectReport })(Filter);
+export default connect(mapStateToProps, {
+  getFx: fxActions.getFx,
+  selectReport: fxActions.selectReport,
+})(Filter);
