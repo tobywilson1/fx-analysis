@@ -3,7 +3,6 @@ import FilterInputField from './FilterInputField';
 import { connect } from 'react-redux';
 import * as fxActions from '../actions/fxActions';
 import filters from '../config.json';
-import store from '../store';
 
 const FilterInputFieldWrapper = ({ report, ...rest }) => {
   const inputFieldArray = filters[report].filters;
