@@ -1,4 +1,10 @@
-import { GET_FX, FX_ERROR, SET_LOADING, CHART_RESIZE } from './types';
+import {
+  GET_FX,
+  FX_ERROR,
+  SET_LOADING,
+  CHART_RESIZE,
+  SELECT_REPORT,
+} from './types';
 import store from '../store';
 
 const FX_URL = process.env.REACT_APP_FX_URL;
@@ -43,5 +49,13 @@ export const updateChartDims = () => (dispatch) => {
   dispatch({
     type: CHART_RESIZE,
     payload: window.fxChart,
+  });
+};
+
+//Change report
+export const selectReport = (report) => (dispatch) => {
+  dispatch({
+    type: SELECT_REPORT,
+    payload: report,
   });
 };

@@ -1,6 +1,7 @@
 {
   "fxData": [
     { "id": "GBPUSD", "timeSeries": [10, 30, 40, 20] },
-    { "id": "GBPEUR", "timeSeries": [30, 50, 10, 20] }
+    { "id": "GBPEUR", "timeSeries": [30, 50, 10, 20] },
+    { "id": "GBPCHF", "timeSeries": [40, 50, 70, 20] }
   ]
 }

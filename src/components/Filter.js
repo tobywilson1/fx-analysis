@@ -1,36 +1,38 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import FilterInputField from './FilterInputField';
 import { connect } from 'react-redux';
-import { getFx } from '../actions/fxActions';
-import M from 'materialize-css/dist/js/materialize.min.js';
+import * as fxActions from '../actions/fxActions';
+import filters from '../config.json';
 
-const Filter = ({ fxPair, getFx }) => {
-  const selectRef = useRef(null);
-
-  useEffect(() => {
-    //Init Materialize JS
-    M.FormSelect.init(selectRef.current);
-  });
-
-  const onChange = async (e) => {
-    const fxPairNew = e.target.value;
-    getFx(fxPairNew);
-  };
-
+const Filter = ({ report, selectReport, fxPair, getFx }) => {
   return (
-    <div>
-      <div className='input-field col s12'>
-        <select ref={selectRef} value={fxPair} onChange={onChange}>
-          <option value='GBPUSD'>GBPUSD</option>
-          <option value='GBPEUR'>GBPEUR</option>
-        </select>
-        <label>FX pair</label>
-      </div>
-    </div>
+    <>
+      <FilterInputField
+        report={report}
+        labelText='Report'
+        inputFieldValue={report}
+        onChangeFunc={selectReport}
+        optionValues={['Test', 'FrAPI']}
+      />
+      <FilterInputField
+        report={report}
+        labelText={filters[report].filter1.labelText}
+        inputFieldValue={fxPair}
+        onChangeFunc={getFx}
+        optionValues={filters[report].filter1.optionValues}
+      />
+    </>
   );
 };
 
 //the bits of the state we want to add into props
-const mapStateToProps = (state) => ({ fxPair: state.fxPair });
+const mapStateToProps = (state) => ({
+  report: state.report,
+  fxPair: state.fxPair,
+});
 
 //any actions added to props via second parameter
-export default connect(mapStateToProps, { getFx })(Filter);
+export default connect(mapStateToProps, {
+  getFx: fxActions.getFx,
+  selectReport: fxActions.selectReport,
+})(Filter);
