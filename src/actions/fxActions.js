@@ -16,18 +16,15 @@ export const getFx = (fxPair) => async (dispatch) => {
     }
 
     const fullURL = `${FX_URL}${fxPair}`;
-    //console.log(fullURL);
-    // const res = await fetch({
-    //   fullURL,
-    //   headers: {
-    //     'Access-Control-Allow-Origin': '*',
-    //   },
-    // });
     const res = await fetch(fullURL);
-    console.log(res);
-    //debugger;
     const data = await res.json();
-    console.log(data);
+
+    if (res.status !== 200) {
+      dispatch({
+        type: FX_ERROR,
+        payload: data.status,
+      });
+    }
 
     dispatch({
       type: GET_FX,
@@ -36,7 +33,7 @@ export const getFx = (fxPair) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: FX_ERROR,
-      payload: String(error),
+      payload: error.response.statusText,
     });
   }
 };
