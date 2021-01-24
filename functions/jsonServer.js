@@ -8,6 +8,7 @@ exports.handler = async (event, context) => {
       statusCode: 405,
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify({ status: 'Only GET allowed!' }),
     };
@@ -16,12 +17,13 @@ exports.handler = async (event, context) => {
   //obtain fx pair as basename of path
 
   const fxPair = path.basename(event.path);
-  const returnData = fileData.fxData.find((item) => (item.id = fxPair));
+  const returnData = fileData.fxData.find((item) => item.id === fxPair);
 
   return {
     statusCode: 200,
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify(returnData),
   };

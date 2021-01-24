@@ -1,8 +1,13 @@
 {
   "name": "react-test",
+  "HomePage": "https://xenodochial-hugle-c67805.netlify.app/",
+  "description": "FX analysis",
   "version": "0.1.0",
-  "private": true,
   "proxy": "http://localhost:5000",
+  "repository": {
+    "type": "github",
+    "url": "tobywilson1/fx-analysis"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",

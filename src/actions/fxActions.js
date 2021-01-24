@@ -16,13 +16,18 @@ export const getFx = (fxPair) => async (dispatch) => {
     }
 
     const fullURL = `${FX_URL}${fxPair}`;
-    const res = await fetch(fullURL, {
-      mode: 'no-cors',
-    });
-    console.log(`res=${res}`);
+    //console.log(fullURL);
+    // const res = await fetch({
+    //   fullURL,
+    //   headers: {
+    //     'Access-Control-Allow-Origin': '*',
+    //   },
+    // });
+    const res = await fetch(fullURL);
+    console.log(res);
     //debugger;
     const data = await res.json();
-    console.log(`data=${data}`);
+    console.log(data);
 
     dispatch({
       type: GET_FX,
