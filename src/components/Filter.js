@@ -5,11 +5,18 @@ import { getFx } from '../actions/fxActions';
 
 const Filter = ({ fxPair, getFx }) => {
   return (
-    <FilterInputField
-      labelText='FX pair'
-      inputFieldValue={fxPair}
-      onChangeFunc={getFx}
-    />
+    <>
+      <FilterInputField
+        labelText='FX pair'
+        inputFieldValue={fxPair}
+        onChangeFunc={getFx}
+      />
+      <FilterInputField
+        labelText='FX pair'
+        inputFieldValue={fxPair}
+        onChangeFunc={getFx}
+      />
+    </>
   );
 };
 
