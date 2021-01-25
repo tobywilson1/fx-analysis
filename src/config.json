@@ -1,4 +1,23 @@
 {
+  "MichaelC": {
+    "url": "https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/",
+    "filters": [
+      {
+        "id": 1,
+        "labelText": "FX pairs",
+        "optionValues": ["GBPUSD", "GBPEUR", "GBPCHF"],
+        "inputFieldValue": "fxPair",
+        "onChangeFunc": "getFx"
+      },
+      {
+        "id": 2,
+        "labelText": "Another FX pairs",
+        "optionValues": ["GBPUSD", "GBPEUR"],
+        "inputFieldValue": "fxPair",
+        "onChangeFunc": "getFx"
+      }
+    ]
+  },
   "FrAPI": {
     "url": "https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/",
     "filters": [
