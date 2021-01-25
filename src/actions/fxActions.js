@@ -6,8 +6,7 @@ import {
   SELECT_REPORT,
 } from './types';
 import store from '../store';
-
-const FX_URL = process.env.REACT_APP_FX_URL;
+import { getConfig } from '../utils/getConfig';
 
 //Get fx from server
 export const getFx = (fxPair) => async (dispatch) => {
@@ -21,6 +20,7 @@ export const getFx = (fxPair) => async (dispatch) => {
       fxPair = store.getState().fxPair;
     }
 
+    const FX_URL = getConfig('url');
     const fullURL = `${FX_URL}${fxPair}`;
     const res = await fetch(fullURL);
     const data = await res.json();

@@ -2,10 +2,10 @@ import React from 'react';
 import FilterInputField from './FilterInputField';
 import { connect } from 'react-redux';
 import * as fxActions from '../actions/fxActions';
-import filters from '../config.json';
+import { getConfig } from '../utils/getConfig';
 
 const FilterInputFieldWrapper = ({ report, ...rest }) => {
-  const inputFieldArray = filters[report].filters;
+  const inputFieldArray = getConfig('filters');
 
   const result = inputFieldArray.map((filter) => {
     const labelText = filter.labelText;

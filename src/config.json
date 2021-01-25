@@ -1,6 +1,6 @@
 {
   "FrAPI": {
-    "url": "xxx",
+    "url": "https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/",
     "filters": [
       {
         "id": 1,
@@ -19,7 +19,7 @@
     ]
   },
   "Test": {
-    "url": "xxx",
+    "url": "https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/",
     "filters": [
       {
         "id": 1,
