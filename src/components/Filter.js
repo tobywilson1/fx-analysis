@@ -3,6 +3,7 @@ import FilterInputField from './FilterInputField';
 import FilterInputFieldWrapper from './FilterInputFieldWrapper';
 import { connect } from 'react-redux';
 import { selectReport } from '../actions/fxActions';
+import { getConfigReports } from '../utils/getConfig';
 
 const Filter = ({ report, selectReport }) => {
   return (
@@ -12,7 +13,7 @@ const Filter = ({ report, selectReport }) => {
         labelText='Report'
         inputFieldValue={report}
         onChangeFunc={selectReport}
-        optionValues={['Test', 'FrAPI']}
+        optionValues={getConfigReports()}
       />
       <FilterInputFieldWrapper report={report} />
     </>
