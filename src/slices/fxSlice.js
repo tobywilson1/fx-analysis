@@ -85,5 +85,6 @@ export const fxPairValue = (state) => state.fx.fxPair;
 export const chartDataValue = (state) => state.fx.chartData;
 export const chartWidthValue = (state) => state.fx.chartWidth;
 export const chartHeightValue = (state) => state.fx.chartHeight;
+export const reportConfigValue = (state) => state.fx.reportConfig;
 
 export default slice.reducer;
