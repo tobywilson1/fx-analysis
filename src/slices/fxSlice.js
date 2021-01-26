@@ -38,6 +38,8 @@ export const slice = createSlice({
       const report = action.payload;
       state.report = report;
       state.reportConfig = getReportConfig(report);
+      state.rawData = null;
+      state.chartData = null;
     },
     SAVE_RAW_DATA: (state, action) => {
       state.rawData = action.payload;
@@ -137,6 +139,16 @@ export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
 export const updateChartDims = () => (dispatch) =>
   dispatch(CHART_RESIZE(window.fxChart));
 
+//Select report and refresh with default values
+export const selectReport = (report) => async (dispatch, getState) => {
+  dispatch(SELECT_REPORT(report));
+
+  //refresh chart
+  const refreshFunc = getState().fx.reportConfig.onChangeFunc;
+  const defaultOptionValue = getState().fx.reportConfig.defaultOptionValue;
+  dispatch(getFx(defaultOptionValue)); //****refreshFunc is a string not a function ****
+};
+
 // Selector functions
 export const reportValue = (state) => state.fx.report;
 export const fxPairValue = (state) => state.fx.fxPair;
@@ -144,5 +156,9 @@ export const chartDataValue = (state) => state.fx.chartData;
 export const chartWidthValue = (state) => state.fx.chartWidth;
 export const chartHeightValue = (state) => state.fx.chartHeight;
 export const reportConfigValue = (state) => state.fx.reportConfig;
+export const getReportRefreshFunc = (state) =>
+  state.fx.reportConfig.onChangeFunc;
+export const getDefaultOptionValue = (state) =>
+  state.fx.reportConfig.defaultOptionValue;
 
 export default slice.reducer;

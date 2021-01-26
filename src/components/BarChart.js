@@ -3,13 +3,15 @@ import BarChartD3 from '../charts/BarChartD3';
 //import { connect } from 'react-redux';
 //import { getFx, updateChartDims } from '../actions/fxActions';
 import {
-  getFx,
   updateChartDims,
   chartDataValue,
   chartWidthValue,
   chartHeightValue,
+  getReportRefreshFunc,
+  getDefaultOptionValue,
 } from '../slices/fxSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import * as fxActions from '../slices/fxActions';
 
 const resizeChart = (chartRef, updateFunc) => {
   const chartArea = chartRef.current;
@@ -38,6 +40,8 @@ const BarChart = () => {
   const chartData = useSelector(chartDataValue);
   const chartWidth = useSelector(chartWidthValue);
   const chartHeight = useSelector(chartHeightValue);
+  // const reportRefreshFunc = useSelector(getReportRefreshFunc);
+  // const defaultOptionValue = useSelector(getDefaultOptionValue);
 
   const despUpdateChartDims = () => dispatch(updateChartDims());
   //const despGetFx = (fxPair) => dispatch(getFx(fxPair));
@@ -55,7 +59,12 @@ const BarChart = () => {
 
   //update chart data
   // useEffect(() => {
-  //   despGetFx(null); //refresh existing fx pair
+  //   const refreshFunc = (defaultValue) =>
+  //     dispatch(fxActions[reportRefreshFunc](defaultValue));
+  //   refreshFunc(defaultOptionValue); //refresh existing fx pair
+  //   console.log(
+  //     `refreshing chart to default values with ${reportRefreshFunc}(${defaultOptionValue})`
+  //   );
   // }, []);
 
   return (
