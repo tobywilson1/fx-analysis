@@ -48,5 +48,17 @@
         "onChangeFunc": "getFx"
       }
     ]
+  },
+  "Test2": {
+    "url": "https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/",
+    "filters": [
+      {
+        "id": 1,
+        "labelText": "FX pair",
+        "optionValues": ["GBPUSD", "GBPEUR"],
+        "inputFieldValue": "fxPair",
+        "onChangeFunc": "getFx"
+      }
+    ]
   }
 }
