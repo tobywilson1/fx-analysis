@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getConfig } from '../utils/getConfig';
+import { getConfig, getReportConfig } from '../utils/getConfig';
 
 export const slice = createSlice({
   name: 'fx',
   initialState: {
     report: 'Test',
+    reportConfig: getReportConfig('Test'),
     fxPair: 'GBPUSD',
     chartData: null,
     chartWidth: 600,
@@ -13,6 +14,7 @@ export const slice = createSlice({
     loading: false,
     error: null,
   },
+  //these are the simple actions that work directly on the state
   reducers: {
     GET_FX: (state, action) => {
       state.fxPair = action.payload.fxPair;
@@ -31,7 +33,9 @@ export const slice = createSlice({
       state.chartHeight = action.payload.height - 10;
     },
     SELECT_REPORT: (state, action) => {
-      state.report = action.payload;
+      const report = action.payload;
+      state.report = report;
+      state.reportConfig = getReportConfig(report);
     },
   },
 });
@@ -49,17 +53,13 @@ export const getFx = (fxPair) => async (dispatch, getState) => {
   //debugger;
   try {
     dispatch(SET_LOADING());
+
     //if missing set fxPair to existing fxPair state
     if (!fxPair) {
       fxPair = getState().fx.fxPair;
-      //console.log('fx pair', fxPair, getState());
     }
 
-    //const FX_URL = getConfig('url');
     const FX_URL = getConfig(getState().fx.report, 'url');
-    //const FX_URL = getConfig('Test', 'url');
-    // const FX_URL =
-    //   'https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/';
     const fullURL = `${FX_URL}${fxPair}`;
     const res = await fetch(fullURL);
     const data = await res.json();
@@ -78,10 +78,6 @@ export const getFx = (fxPair) => async (dispatch, getState) => {
 //Resize chart for window resize
 export const updateChartDims = () => (dispatch) =>
   dispatch(CHART_RESIZE(window.fxChart));
-
-//Change report
-// export const selectReport = (report) => (dispatch) =>
-//   dispatch(SELECT_REPORT(report));
 
 // Selector functions
 export const reportValue = (state) => state.fx.report;

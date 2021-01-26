@@ -1,16 +1,17 @@
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getFx, fxPairValue, reportValue } from '../slices/fxSlice';
+
+import { getFx, fxPairValue } from '../slices/fxSlice';
 
 import FilterInputField from './FilterInputField';
 
 import { getConfig } from '../utils/getConfig';
 
-const FilterInputFieldWrapper = () => {
+const FilterInputFieldWrapper = ({ report }) => {
   const dispatch = useDispatch();
-  const fxPair = useSelector(fxPairValue);
-  const report = useSelector(reportValue);
+
+  const fxPair = useSelector(fxPairValue); //need tomake this dynamic so
   const inputFieldArray = getConfig(report, 'filters');
 
   const result = inputFieldArray.map((filter) => {

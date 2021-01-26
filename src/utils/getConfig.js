@@ -10,3 +10,7 @@ export const getConfig = (report, attr) => {
   //const report = store.getState().report;
   return filters[report][attr];
 };
+
+export const getReportConfig = (report) => {
+  return filters[report];
+};

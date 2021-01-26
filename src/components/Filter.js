@@ -21,7 +21,7 @@ function Filter() {
         onChangeFunc={(report) => dispatch(SELECT_REPORT(report))}
         optionValues={getConfigReports()}
       />
-      <FilterInputFieldWrapper />
+      <FilterInputFieldWrapper report={report} />
     </>
   );
 }
