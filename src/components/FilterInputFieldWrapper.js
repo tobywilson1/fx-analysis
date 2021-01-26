@@ -11,7 +11,7 @@ const FilterInputFieldWrapper = () => {
   const dispatch = useDispatch();
   const fxPair = useSelector(fxPairValue);
   const report = useSelector(reportValue);
-  const inputFieldArray = getConfig('filters');
+  const inputFieldArray = getConfig(report, 'filters');
 
   const result = inputFieldArray.map((filter) => {
     const labelText = filter.labelText;

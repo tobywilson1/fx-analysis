@@ -55,7 +55,11 @@ export const getFx = (fxPair) => async (dispatch, getState) => {
       //console.log('fx pair', fxPair, getState());
     }
 
-    const FX_URL = getConfig('url');
+    //const FX_URL = getConfig('url');
+    const FX_URL = getConfig(getState().fx.report, 'url');
+    //const FX_URL = getConfig('Test', 'url');
+    // const FX_URL =
+    //   'https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/';
     const fullURL = `${FX_URL}${fxPair}`;
     const res = await fetch(fullURL);
     const data = await res.json();
