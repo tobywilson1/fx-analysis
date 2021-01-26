@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getConfig, getReportConfig } from '../utils/getConfig';
+import { getReportConfig } from '../utils/getConfig';
 
 export const slice = createSlice({
   name: 'fx',
   initialState: {
-    report: 'Test',
-    reportConfig: getReportConfig('Test'),
-    fxPair: 'GBPUSD',
+    report: 'MichaelC',
+    reportConfig: getReportConfig('MichaelC'),
+    fxPair: 'GBP',
     rawData: null,
     chartData: null,
     chartWidth: 600,
@@ -59,13 +59,14 @@ export const getFx = (fxPair) => async (dispatch, getState) => {
   //debugger;
   try {
     dispatch(SET_LOADING());
-
+    console.log('getFx..');
     //if missing set fxPair to existing fxPair state
     if (!fxPair) {
       fxPair = getState().fx.fxPair;
     }
 
-    const FX_URL = getConfig(getState().fx.report, 'url');
+    //const FX_URL = getConfig(getState().fx.report, 'url');
+    const FX_URL = getState().fx.reportConfig.url;
     const fullURL = `${FX_URL}${fxPair}`;
     const res = await fetch(fullURL);
     const data = await res.json();
@@ -85,9 +86,10 @@ export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
   //debugger;
   try {
     dispatch(SET_LOADING());
-
-    const FX_URL = getConfig(getState().fx.report, 'url');
-    const fullURL = `${FX_URL}`;
+    console.log('getFrankfurter..');
+    //const FX_URL = getConfig(getState().fx.report, 'url');
+    const FX_URL = getState().fx.reportConfig.url;
+    const fullURL = FX_URL;
     const res = await fetch(fullURL);
     let data = await res.json();
 
@@ -96,13 +98,28 @@ export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
       return;
     }
 
+    // parse rawData (testing only)
+    const rawData = Object.entries(data.rates).map((dailyData) => [
+      dailyData[0],
+      dailyData[1][fxPair],
+    ]);
+    console.log(typeof rawData);
+
     // //save raw results
-    dispatch(SAVE_RAW_DATA(data));
+    dispatch(
+      SAVE_RAW_DATA(
+        rawData
+        // Object.entries(data.rates)
+        //   .map((dailyData) => [dailyData[0], dailyData[1][fxPair]])
+        //   .unshift(['date', 'value'])
+      )
+    );
 
     //need to parse the returned object
-    const timeSeries = Object.entries(data.rates).map(
-      (dailyData) => dailyData[1][fxPair]
-    );
+    const timeSeries = Object.entries(data.rates).map((dailyData) => [
+      dailyData[0],
+      dailyData[1][fxPair],
+    ]);
     //dispatch(SAVE_RAW_DATA(timeSeries));
 
     //test harness

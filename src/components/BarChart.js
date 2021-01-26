@@ -40,7 +40,7 @@ const BarChart = () => {
   const chartHeight = useSelector(chartHeightValue);
 
   const despUpdateChartDims = () => dispatch(updateChartDims());
-  const despGetFx = (fxPair) => dispatch(getFx(fxPair));
+  //const despGetFx = (fxPair) => dispatch(getFx(fxPair));
 
   //init
   useEffect(() => {
@@ -54,9 +54,9 @@ const BarChart = () => {
   }, []);
 
   //update chart data
-  useEffect(() => {
-    despGetFx(null); //refresh existing fx pair
-  }, []);
+  // useEffect(() => {
+  //   despGetFx(null); //refresh existing fx pair
+  // }, []);
 
   return (
     <div ref={chartRef} className='chartArea'>
