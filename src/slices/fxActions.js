@@ -5,5 +5,7 @@ export {
   FX_ERROR,
   CHART_RESIZE,
   SELECT_REPORT,
+  SAVE_RAW_DATA,
   getFx,
+  getFrankfurter,
 } from './fxSlice';

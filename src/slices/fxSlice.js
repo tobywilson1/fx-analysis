@@ -7,6 +7,7 @@ export const slice = createSlice({
     report: 'Test',
     reportConfig: getReportConfig('Test'),
     fxPair: 'GBPUSD',
+    rawData: null,
     chartData: null,
     chartWidth: 600,
     chartHeight: 400,
@@ -23,6 +24,7 @@ export const slice = createSlice({
     },
     SET_LOADING: (state) => {
       state.loading = true;
+      state.error = null;
     },
     FX_ERROR: (state, action) => {
       console.error(action.payload);
@@ -37,6 +39,9 @@ export const slice = createSlice({
       state.report = report;
       state.reportConfig = getReportConfig(report);
     },
+    SAVE_RAW_DATA: (state, action) => {
+      state.rawData = action.payload;
+    },
   },
 });
 
@@ -46,6 +51,7 @@ export const {
   FX_ERROR,
   CHART_RESIZE,
   SELECT_REPORT,
+  SAVE_RAW_DATA,
 } = slice.actions;
 
 // Thunk functions for async logic
@@ -69,6 +75,41 @@ export const getFx = (fxPair) => async (dispatch, getState) => {
     }
 
     dispatch(GET_FX({ fxPair, timeSeries: data.timeSeries }));
+  } catch (error) {
+    console.error(String(error));
+    dispatch(FX_ERROR(String(error)));
+  }
+};
+
+export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
+  //debugger;
+  try {
+    dispatch(SET_LOADING());
+
+    const FX_URL = getConfig(getState().fx.report, 'url');
+    const fullURL = `${FX_URL}`;
+    const res = await fetch(fullURL);
+    let data = await res.json();
+
+    if (res.status !== 200) {
+      dispatch(FX_ERROR(data.status));
+      return;
+    }
+
+    // //save raw results
+    dispatch(SAVE_RAW_DATA(data));
+
+    //need to parse the returned object
+    const timeSeries = Object.entries(data.rates).map(
+      (dailyData) => dailyData[1][fxPair]
+    );
+    //dispatch(SAVE_RAW_DATA(timeSeries));
+
+    //test harness
+    //const fxPair = 'GBP';
+    //timeSeries = [1, 2, 3];
+
+    dispatch(GET_FX({ fxPair, timeSeries }));
   } catch (error) {
     console.error(String(error));
     dispatch(FX_ERROR(String(error)));
