@@ -1,17 +1,23 @@
 import React from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { getFx, fxPairValue, reportValue } from '../slices/fxSlice';
+
 import FilterInputField from './FilterInputField';
-import { connect } from 'react-redux';
-import * as fxActions from '../actions/fxActions';
+
 import { getConfig } from '../utils/getConfig';
 
-const FilterInputFieldWrapper = ({ report, ...rest }) => {
+const FilterInputFieldWrapper = () => {
+  const dispatch = useDispatch();
+  const fxPair = useSelector(fxPairValue);
+  const report = useSelector(reportValue);
   const inputFieldArray = getConfig('filters');
 
   const result = inputFieldArray.map((filter) => {
     const labelText = filter.labelText;
     const optionValues = filter.optionValues;
-    const onChangeFunc = rest[filter.onChangeFunc];
-    const inputFieldValue = rest[filter.inputFieldValue];
+    const onChangeFunc = (fxPair) => dispatch(getFx(fxPair)); //rest[filter.onChangeFunc];
+    const inputFieldValue = fxPair; //rest[filter.inputFieldValue];
     const id = filter.id;
 
     return (
@@ -29,16 +35,4 @@ const FilterInputFieldWrapper = ({ report, ...rest }) => {
   return result;
 };
 
-//the bits of the state we want to add into props
-const mapStateToProps = (state) => {
-  //const key = filters[report].filters[0].inputFieldValue;
-  return {
-    //key: state[key],
-    ...state,
-  };
-};
-
-//any actions added to props via second parameter
-export default connect(mapStateToProps, {
-  ...fxActions,
-})(FilterInputFieldWrapper);
+export default FilterInputFieldWrapper;

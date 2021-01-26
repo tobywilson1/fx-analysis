@@ -1,9 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import BarChartD3 from '../charts/BarChartD3';
-import { connect } from 'react-redux';
-import { getFx, updateChartDims } from '../actions/fxActions';
+//import { connect } from 'react-redux';
+//import { getFx, updateChartDims } from '../actions/fxActions';
+import {
+  getFx,
+  updateChartDims,
+  chartDataValue,
+  chartWidthValue,
+  chartHeightValue,
+} from '../slices/fxSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
-const resizeChart = (chartRef, updateChartDims) => {
+const resizeChart = (chartRef, updateFunc) => {
   const chartArea = chartRef.current;
 
   //get size of the chartArea
@@ -20,47 +28,41 @@ const resizeChart = (chartRef, updateChartDims) => {
 
   //console.log(parentWidth, parentHeight);
 
-  updateChartDims();
+  updateFunc();
 };
 
-function BarChart({
-  chartData,
-  chartWidth,
-  chartHeight,
-  getFx,
-  updateChartDims,
-}) {
+const BarChart = () => {
   const chartRef = useRef(null);
+  const dispatch = useDispatch();
+
+  const chartData = useSelector(chartDataValue);
+  const chartWidth = useSelector(chartWidthValue);
+  const chartHeight = useSelector(chartHeightValue);
+
+  const despUpdateChartDims = () => dispatch(updateChartDims());
+  const despGetFx = (fxPair) => dispatch(getFx(fxPair));
 
   //init
   useEffect(() => {
     window.fxChart = {};
-    resizeChart(chartRef, updateChartDims);
-    const resizeFunc = resizeChart.bind(null, chartRef, updateChartDims);
+    resizeChart(chartRef, despUpdateChartDims);
+    const resizeFunc = resizeChart.bind(null, chartRef, despUpdateChartDims);
     window.addEventListener('resize', resizeFunc, false);
     return () => {
       window.removeEventListener('resize', resizeFunc, false);
     };
-  }, [updateChartDims]);
+  }, []);
 
   //update chart data
   useEffect(() => {
-    getFx(null); //refresh existing fx pair
-  }, [getFx]);
+    despGetFx(null); //refresh existing fx pair
+  }, []);
 
   return (
     <div ref={chartRef} className='chartArea'>
       <BarChartD3 width={chartWidth} height={chartHeight} data={chartData} />
     </div>
   );
-}
+};
 
-//the bits of the state we want to add into props
-const mapStateToProps = (state) => ({
-  chartData: state.chartData,
-  chartWidth: state.chartWidth,
-  chartHeight: state.chartHeight,
-});
-
-//any actions added to props via second parameter
-export default connect(mapStateToProps, { getFx, updateChartDims })(BarChart);
+export default BarChart;

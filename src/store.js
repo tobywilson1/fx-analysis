@@ -1,7 +1,17 @@
+// import { configureStore } from '@reduxjs/toolkit';
+// import fxReducer from './slices/fxSlice';
+
+// export default configureStore({
+//   reducer: {
+//     fx: fxReducer,
+//   },
+// });
+
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
+//import rootReducer from './slices/fxSlice';
 
 const initialState = {
   report: 'Test',
