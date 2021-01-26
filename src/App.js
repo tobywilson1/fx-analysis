@@ -13,7 +13,9 @@ function App() {
     <div className='container'>
       <Header />
       <div className='row'>
-        <div className='col s9 border'>{/* <BarChart /> */}</div>
+        <div className='col s9 border'>
+          <BarChart />
+        </div>
         <div className='col s3 border'>
           <Filter />
         </div>
