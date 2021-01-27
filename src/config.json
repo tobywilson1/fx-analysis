@@ -9,7 +9,7 @@
         "id": 1,
         "labelText": "FX pairs",
         "optionValues": ["CHF", "GBP"],
-        "inputFieldValue": "Filter1",
+        "inputFieldName": "Filter1",
         "onChangeFunc": "getFrankfurter",
         "defaultOptionValue": "GBP"
       }
@@ -25,7 +25,7 @@
         "id": 1,
         "labelText": "FX pair",
         "optionValues": ["GBPUSD", "GBPEUR"],
-        "inputFieldValue": "Filter1",
+        "inputFieldName": "Filter1",
         "onChangeFunc": "getFx",
         "defaultOptionValue": "GBPUSD"
       }

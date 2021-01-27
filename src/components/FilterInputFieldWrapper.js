@@ -14,7 +14,7 @@ const FilterInputFieldWrapper = ({ report }) => {
     const labelText = filter.labelText;
     const optionValues = filter.optionValues;
     const onChangeFunc = (...args) => dispatch(filter.filterFunc(...args));
-    const inputFieldValue = filter.inputFieldValueRef;
+    const inputFieldValue = filter.inputFieldValue;
     const id = filter.id;
 
     return (

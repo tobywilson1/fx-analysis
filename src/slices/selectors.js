@@ -17,7 +17,7 @@ export const getReportFilterDetails = createSelector(
     return filters.map((filter) => {
       return {
         ...filter,
-        inputFieldValueRef: fxState[filter.inputFieldValue],
+        inputFieldValue: fxState[filter.inputFieldName],
         filterFunc: fxActions[filter.onChangeFunc],
       };
     });
