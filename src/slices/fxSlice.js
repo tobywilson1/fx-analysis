@@ -133,23 +133,24 @@ export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
 export const updateChartDims = () => (dispatch) =>
   dispatch(CHART_RESIZE(window.fxChart));
 
-//Refresh report with default values
-export const refreshReport = () => async (dispatch, getState) => {
-  console.log('Refreshing chart data');
-
+const getRefreshFunc = (getState) => {
   //obtain data parsing functions
   const thunkNameSpace = {
     getFx,
     getFrankfurter,
   };
 
-  //refresh chart data
   const refreshFuncString = getState().fx.reportConfig.onChangeFunc;
-  const defaultValue = getState().fx.reportConfig.defaultValue;
+  const reportRefreshFunc = thunkNameSpace[refreshFuncString];
+  return reportRefreshFunc;
+};
 
-  var reportRefreshFunc = thunkNameSpace[refreshFuncString];
+//Refresh report with default values
+export const refreshReport = () => async (dispatch, getState) => {
+  const defaultValue = getState().fx.reportConfig.defaultValue;
+  const reportRefreshFunc = getRefreshFunc(getState);
   console.log(
-    `Refreshing report data via ${refreshFuncString} with report default input ${defaultValue}`
+    `Refreshing report data via ${reportRefreshFunc.name} with report default input ${defaultValue}`
   );
 
   dispatch(reportRefreshFunc(defaultValue));
@@ -158,22 +159,12 @@ export const refreshReport = () => async (dispatch, getState) => {
 
 export const applyFilter = (id, value) => async (dispatch, getState) => {
   console.log(`Applying filter${id} of value ${value}`);
-
-  //update filter1 **need to generalise this logic**
   dispatch(UPDATE_FILTER({ filter: `Filter${id}`, value: value }));
 
-  //obtain data parsing functions
-  const thunkNameSpace = {
-    getFx,
-    getFrankfurter,
-  };
-
-  //refresh chart data
-  const refreshFuncString = getState().fx.reportConfig.onChangeFunc;
-  var reportRefreshFunc = thunkNameSpace[refreshFuncString];
+  const reportRefreshFunc = getRefreshFunc(getState);
 
   console.log(
-    `Refreshing report data via ${refreshFuncString} with default filter1 value ${value}`
+    `Refreshing report data via ${reportRefreshFunc.name} with user-entered filter1 value ${value}`
   );
 
   dispatch(reportRefreshFunc(value));
@@ -188,20 +179,10 @@ export const applyDefaultFilters = () => async (dispatch, getState) => {
   ).defaultOptionValue;
   dispatch(UPDATE_FILTER({ filter: 'Filter1', value: filter1DefaultValue }));
 
-  //obtain data parsing functions
-  const thunkNameSpace = {
-    getFx,
-    getFrankfurter,
-  };
-
-  //refresh chart data
-  const refreshFuncString = getState().fx.reportConfig.onChangeFunc;
-  var reportRefreshFunc = thunkNameSpace[refreshFuncString];
-
+  const reportRefreshFunc = getRefreshFunc(getState);
   console.log(
-    `Refreshing report data via ${refreshFuncString} with default filter1 value ${filter1DefaultValue}`
+    `Refreshing report data via ${reportRefreshFunc.name} with default filter1 value ${filter1DefaultValue}`
   );
-
   dispatch(reportRefreshFunc(filter1DefaultValue));
 };
 
