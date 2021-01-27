@@ -12,4 +12,6 @@ export {
   updateChartDims,
   selectReport,
   refreshReport,
+  applyDefaultFilters,
+  applyFilter,
 } from './fxSlice';

@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import FilterInputField from './FilterInputField';
 import { getReportFilterDetails } from '../slices/selectors';
+import { applyFilter } from '../slices/fxActions';
 
 const FilterInputFieldWrapper = ({ report }) => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const FilterInputFieldWrapper = ({ report }) => {
   const result = inputFieldArray.map((filter) => {
     const labelText = filter.labelText;
     const optionValues = filter.optionValues;
-    const onChangeFunc = (...args) => dispatch(filter.filterFunc(...args));
+    const onChangeFunc = (value) => dispatch(applyFilter(filter.id, value));
     const inputFieldValue = filter.inputFieldValue;
     const id = filter.id;
 
