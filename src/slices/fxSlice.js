@@ -81,6 +81,7 @@ export const getFx = (fxPair) => async (dispatch, getState) => {
     }
 
     dispatch(UPDATE_CHART_DATA({ fxPair, timeSeries: data.timeSeries }));
+    dispatch(UPDATE_FILTER({ filter: 'Filter1', value: fxPair }));
   } catch (error) {
     console.error(String(error));
     dispatch(FX_ERROR(String(error)));
@@ -121,6 +122,7 @@ export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
     //rawData.unshift(['date', 'value']);
 
     dispatch(UPDATE_CHART_DATA({ fxPair, timeSeries }));
+    dispatch(UPDATE_FILTER({ filter: 'Filter1', value: fxPair }));
   } catch (error) {
     console.error(String(error));
     dispatch(FX_ERROR(String(error)));
@@ -131,20 +133,9 @@ export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
 export const updateChartDims = () => (dispatch) =>
   dispatch(CHART_RESIZE(window.fxChart));
 
-//Select report and refresh with default values
-export const selectReport = (report) => async (dispatch, getState) => {
-  //if report parameter supplied then update report-related state, otherwise continue on to refresh
-  if (report) {
-    console.log('Selecting new report');
-    dispatch(
-      SELECT_REPORT({
-        report,
-        reportConfig: getReportConfig(report),
-      })
-    );
-  } else {
-    console.log('Refreshing chart data');
-  }
+//Refresh report with default values
+export const refreshReport = () => async (dispatch, getState) => {
+  console.log('Refreshing chart data');
 
   //obtain data parsing functions
   const thunkNameSpace = {
@@ -168,6 +159,19 @@ export const selectReport = (report) => async (dispatch, getState) => {
     (filter) => filter.id === 1
   ).defaultOptionValue;
   dispatch(UPDATE_FILTER({ filter: 'Filter1', value: filter1DefaultValue }));
+};
+
+//Select report
+export const selectReport = (report) => async (dispatch, getState) => {
+  console.log('Selecting new report');
+  dispatch(
+    SELECT_REPORT({
+      report,
+      reportConfig: getReportConfig(report),
+    })
+  );
+
+  refreshReport();
 };
 
 export default slice.reducer;

@@ -3,7 +3,7 @@ import BarChart from './components/BarChart';
 import Header from './components/Header';
 import Filter from './components/Filter';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import { selectReport } from './slices/fxActions';
+import { refreshReport } from './slices/fxActions';
 import { useDispatch } from 'react-redux';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     M.AutoInit(); //Init Materialize JS
-    dispatch(selectReport()); //Refresh report data
+    dispatch(refreshReport()); //Refresh report data
   });
   return (
     <div className='container'>

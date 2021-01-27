@@ -11,4 +11,5 @@ export {
   getFrankfurter,
   updateChartDims,
   selectReport,
+  refreshReport,
 } from './fxSlice';

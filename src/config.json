@@ -27,7 +27,7 @@
         "optionValues": ["GBPUSD", "GBPEUR"],
         "inputFieldValue": "Filter1",
         "onChangeFunc": "getFx",
-        "defaultOptionValue": "GBPEUR"
+        "defaultOptionValue": "GBPUSD"
       }
     ]
   }
