@@ -179,11 +179,13 @@ export const applyDefaultFilters = () => async (dispatch, getState) => {
   ).defaultOptionValue;
   dispatch(UPDATE_FILTER({ filter: 'Filter1', value: filter1DefaultValue }));
 
-  const reportRefreshFunc = getRefreshFunc(getState);
-  console.log(
-    `Refreshing report data via ${reportRefreshFunc.name} with default filter1 value ${filter1DefaultValue}`
-  );
-  dispatch(reportRefreshFunc(filter1DefaultValue));
+  //****MAY BE NEEDED IN THE FUTURE*****
+  //this is only relevant where there is further filtering of report data loaded in the background before the chart is rendered
+  // const reportRefreshFunc = getRefreshFunc(getState);
+  // console.log(
+  //   `Refreshing report data via ${reportRefreshFunc.name} with default filter1 value ${filter1DefaultValue}`
+  // );
+  // dispatch(reportRefreshFunc(filter1DefaultValue));
 };
 
 //Select report

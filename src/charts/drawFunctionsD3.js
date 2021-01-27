@@ -44,9 +44,22 @@ export const barChart = {
 
 export const linePlot = {
   resize: (width, height) => {
+    // set the dimensions and margins of the graph
+    const margin = {
+      top: 10,
+      right: 30,
+      bottom: 30,
+      left: 60,
+    };
+
+    width = width - margin.left - margin.right;
+    height = height - margin.top - margin.bottom;
+
     return {
-      chartWidth: width,
-      chartHeight: height,
+      chartWidth: width + margin.left + margin.right,
+      chartHeight: height + margin.top + margin.bottom,
+      chartMarginLeft: margin.left,
+      chartMarginRight: margin.right,
     };
   },
   draw: (d3, svg, width, height, data) => {
@@ -57,18 +70,6 @@ export const linePlot = {
     };
 
     data = data.map((record) => parser(record));
-
-    // set the dimensions and margins of the graph
-    var margin = { top: 10, right: 30, bottom: 30, left: 60 },
-      width = 460 - margin.left - margin.right,
-      height = 400 - margin.top - margin.bottom;
-
-    // append the svg object to the body of the page
-    svg
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     var x = d3
       .scaleTime()

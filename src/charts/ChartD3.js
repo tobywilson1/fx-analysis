@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import React, { useRef, useEffect, useState } from 'react';
-import { getChartWidth } from '../slices/selectors';
 import { barChart, linePlot } from './drawFunctionsD3';
+import { handleFrameResize } from './chartUtils';
 
 const chartTypes = {
   barChart,
@@ -11,15 +11,9 @@ const chartTypes = {
 function ChartD3({ width = 100, height = 100, data, chartType }) {
   const ref = useRef();
   const svg = d3.select(ref.current);
-  //const [chartSize, setChartSize] = useState({ width: 100, height: 100 });
 
   useEffect(() => {
-    const { chartWidth, chartHeight } = chartTypes[chartType].resize(
-      width,
-      height
-    );
-    svg.attr('width', chartWidth).attr('height', chartHeight);
-    //.style('border', '1px solid black');
+    handleFrameResize(svg, width, height, chartTypes, chartType);
   }, [width, height]);
 
   useEffect(() => {
