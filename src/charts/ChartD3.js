@@ -10,10 +10,10 @@ const chartTypes = {
 function ChartD3({ width = 100, height = 100, data, chartType }) {
   const ref = useRef();
 
-  useEffect(() => {
-    d3.select(ref.current).attr('width', width).attr('height', height);
-    //.style('border', '1px solid black');
-  }, [width, height]);
+  // useEffect(() => {
+  //   d3.select(ref.current).attr('width', width).attr('height', height);
+  //   //.style('border', '1px solid black');
+  // }, [width, height]);
 
   useEffect(() => {
     const svg = d3.select(ref.current);

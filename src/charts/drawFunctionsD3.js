@@ -1,5 +1,6 @@
 export const barChart = (d3, svg, width, height, data) => {
   console.log('rendering barChart..');
+  svg.attr('width', width).attr('height', height);
   var selection = svg.selectAll('rect').data(data);
   var yScale = d3
     .scaleLinear()
@@ -42,9 +43,18 @@ export const linePlot = (d3, svg, width, height, data) => {
   };
 
   data = data.map((record) => parser(record));
-  console.log(data);
 
-  //var selection = svg.selectAll('rect').data(data);
+  // set the dimensions and margins of the graph
+  var margin = { top: 10, right: 30, bottom: 30, left: 60 },
+    width = 460 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+  // append the svg object to the body of the page
+  svg
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
   var x = d3
     .scaleTime()

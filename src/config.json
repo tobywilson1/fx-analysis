@@ -1,6 +1,6 @@
 {
   "FrankBankAPI": {
-    "url": "https://api.frankfurter.app/2020-10-01..2021-01-10",
+    "url": "https://api.frankfurter.app/2020-12-01..2021-01-10",
     "onChangeFunc": "getFrankfurter",
     "defaultValue": "GBP",
     "chartType": "linePlot",

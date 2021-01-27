@@ -102,34 +102,19 @@ export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
     }
 
     // parse rawData (testing only)
-    const rawData = Object.entries(data.rates).map((dailyData) => [
-      dailyData[0],
-      dailyData[1][fxPair],
-    ]);
-
-    rawData.unshift(['date', 'value']);
+    const rawData = data;
     //console.log(typeof rawData);
 
     // //save raw results
-    dispatch(
-      SAVE_RAW_DATA(
-        rawData
-        // Object.entries(data.rates)
-        //   .map((dailyData) => [dailyData[0], dailyData[1][fxPair]])
-        //   .unshift(['date', 'value'])
-      )
-    );
+    dispatch(SAVE_RAW_DATA(rawData));
 
     //need to parse the returned object
     const timeSeries = Object.entries(data.rates).map((dailyData) => [
       dailyData[0],
       dailyData[1][fxPair],
     ]);
-    //dispatch(SAVE_RAW_DATA(timeSeries));
 
-    //test harness
-    //const fxPair = 'GBP';
-    //timeSeries = [1, 2, 3];
+    //rawData.unshift(['date', 'value']);
 
     dispatch(UPDATE_CHART_DATA({ fxPair, timeSeries }));
   } catch (error) {
@@ -168,7 +153,9 @@ export const selectReport = (report) => async (dispatch, getState) => {
   const defaultValue = getState().fx.reportConfig.defaultValue;
 
   var reportRefreshFunc = thunkNameSpace[refreshFuncString];
-  console.log(`Refreshing report data via ${refreshFuncString}`);
+  console.log(
+    `Refreshing report data via ${refreshFuncString} with input ${defaultValue}`
+  );
 
   dispatch(reportRefreshFunc(defaultValue));
 };
