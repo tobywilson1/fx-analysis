@@ -1,6 +1,11 @@
 import * as fxActions from './fxActions';
 import { createSelector } from 'reselect';
 
+export const getReport = (state) => state.fx.report;
+export const getChartData = (state) => state.fx.chartData;
+export const getChartWidth = (state) => state.fx.chartWidth;
+export const getChartHeight = (state) => state.fx.chartHeight;
+
 const getFilters = (state) => state.fx.reportConfig.filters; //the filters for the currently selected report
 const getFxState = (state) => state.fx;
 

@@ -149,12 +149,4 @@ export const selectReport = (report) => async (dispatch, getState) => {
   dispatch(getFx(defaultOptionValue)); //****refreshFunc is a string not a function ****
 };
 
-// Selector functions
-export const reportValue = (state) => state.fx.report;
-export const fxPairValue = (state) => state.fx.fxPair;
-export const chartDataValue = (state) => state.fx.chartData;
-export const chartWidthValue = (state) => state.fx.chartWidth;
-export const chartHeightValue = (state) => state.fx.chartHeight;
-export const reportConfigValue = (state) => state.fx.reportConfig;
-
 export default slice.reducer;

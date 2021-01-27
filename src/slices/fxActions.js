@@ -8,4 +8,6 @@ export {
   SAVE_RAW_DATA,
   getFx,
   getFrankfurter,
+  updateChartDims,
+  selectReport,
 } from './fxSlice';

@@ -1,16 +1,18 @@
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectReport, reportValue } from '../slices/fxSlice';
+import { getReport } from '../slices/selectors';
+import { selectReport } from '../slices/fxActions';
 
 import FilterInputField from './FilterInputField';
 import FilterInputFieldWrapper from './FilterInputFieldWrapper';
 
 import { getConfigReports } from '../utils/getConfig';
+const allReports = getConfigReports();
 
 function Filter() {
   const dispatch = useDispatch();
-  const report = useSelector(reportValue);
+  const report = useSelector(getReport);
 
   return (
     <>
@@ -19,7 +21,7 @@ function Filter() {
         labelText='Report'
         inputFieldValue={report}
         onChangeFunc={(report) => dispatch(selectReport(report))}
-        optionValues={getConfigReports()}
+        optionValues={allReports}
       />
       <FilterInputFieldWrapper report={report} />
     </>
