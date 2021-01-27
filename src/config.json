@@ -1,5 +1,5 @@
 {
-  "MichaelC": {
+  "FrankBankAPI": {
     "url": "https://api.frankfurter.app/2020-10-01..2021-01-10",
     "onChangeFunc": "getFrankfurter",
     "defaultOptionValue": "GBP",
@@ -14,45 +14,7 @@
       }
     ]
   },
-  "FrAPI": {
-    "url": "https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/",
-    "onChangeFunc": "getFx",
-    "defaultOptionValue": "GBPUSD",
-    "filters": [
-      {
-        "id": 1,
-        "labelText": "FX pairs",
-        "optionValues": ["GBPUSD", "GBPEUR", "GBPCHF"],
-        "inputFieldValue": "fxPair",
-        "onChangeFunc": "getFx",
-        "defaultOptionValue": "GBPUSD"
-      },
-      {
-        "id": 2,
-        "labelText": "Another FX pairs",
-        "optionValues": ["GBPUSD", "GBPEUR"],
-        "inputFieldValue": "fxPair",
-        "onChangeFunc": "getFx",
-        "defaultOptionValue": "GBPUSD"
-      }
-    ]
-  },
   "Test": {
-    "url": "https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/",
-    "onChangeFunc": "getFx",
-    "defaultOptionValue": "GBPUSD",
-    "filters": [
-      {
-        "id": 1,
-        "labelText": "FX pair",
-        "optionValues": ["GBPUSD", "GBPEUR"],
-        "inputFieldValue": "fxPair",
-        "onChangeFunc": "getFx",
-        "defaultOptionValue": "GBPUSD"
-      }
-    ]
-  },
-  "Test2": {
     "url": "https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/",
     "onChangeFunc": "getFx",
     "defaultOptionValue": "GBPUSD",

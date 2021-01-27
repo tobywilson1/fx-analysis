@@ -1,30 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import * as fxActions from '../slices/fxActions';
 import FilterInputField from './FilterInputField';
-import { createSelector } from 'reselect';
-
-const getFilters = (state) => state.fx.reportConfig.filters;
-const getFxState = (state) => state.fx;
-
-const getFilterDetails = createSelector(
-  [getFilters, getFxState],
-  (filters, fxState) => {
-    return filters.map((filter) => {
-      return {
-        ...filter,
-        inputFieldValueRef: fxState[filter.inputFieldValue],
-        filterFunc: fxActions[filter.onChangeFunc],
-      };
-    });
-  }
-);
+import { getReportFilterDetails } from '../slices/selectors';
 
 const FilterInputFieldWrapper = ({ report }) => {
   const dispatch = useDispatch();
 
-  //get report filters from config and add actual state and function references
-  const inputFieldArray = useSelector(getFilterDetails);
+  //get report filter details
+  const inputFieldArray = useSelector(getReportFilterDetails);
 
   //generate individual filter components
   const result = inputFieldArray.map((filter) => {

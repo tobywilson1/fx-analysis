@@ -4,8 +4,8 @@ import { getReportConfig } from '../utils/getConfig';
 export const slice = createSlice({
   name: 'fx',
   initialState: {
-    report: 'MichaelC',
-    reportConfig: getReportConfig('MichaelC'),
+    report: 'Test',
+    reportConfig: getReportConfig('Test'),
     fxPair: 'GBP',
     rawData: null,
     chartData: null,
