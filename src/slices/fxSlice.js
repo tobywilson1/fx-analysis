@@ -6,7 +6,7 @@ export const slice = createSlice({
   initialState: {
     report: 'Test',
     reportConfig: getReportConfig('Test'),
-    fxPair: 'GBP',
+    Filter1: '',
     rawData: null,
     chartData: null,
     chartWidth: 600,
@@ -42,6 +42,9 @@ export const slice = createSlice({
     SAVE_RAW_DATA: (state, action) => {
       state.rawData = action.payload;
     },
+    UPDATE_FILTER: (state, action) => {
+      state[action.payload.filter] = action.payload.value;
+    },
   },
 });
 
@@ -53,6 +56,7 @@ export const {
   SELECT_REPORT,
   SAVE_RAW_DATA,
   UPDATE_CHART_DATA,
+  UPDATE_FILTER,
 } = slice.actions;
 
 // Thunk functions with async logic for parsing API data
@@ -158,6 +162,12 @@ export const selectReport = (report) => async (dispatch, getState) => {
   );
 
   dispatch(reportRefreshFunc(defaultValue));
+
+  //update filter1 **need to generalise this logic**
+  const filter1DefaultValue = getState().fx.reportConfig.filters.find(
+    (filter) => filter.id === 1
+  ).defaultOptionValue;
+  dispatch(UPDATE_FILTER({ filter: 'Filter1', value: filter1DefaultValue }));
 };
 
 export default slice.reducer;

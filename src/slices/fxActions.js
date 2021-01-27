@@ -6,6 +6,7 @@ export {
   CHART_RESIZE,
   SELECT_REPORT,
   SAVE_RAW_DATA,
+  UPDATE_FILTER,
   getFx,
   getFrankfurter,
   updateChartDims,
