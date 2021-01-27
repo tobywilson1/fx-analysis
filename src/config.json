@@ -3,6 +3,7 @@
     "url": "https://api.frankfurter.app/2020-10-01..2021-01-10",
     "onChangeFunc": "getFrankfurter",
     "defaultValue": "GBP",
+    "chartType": "barChart",
     "filters": [
       {
         "id": 1,
@@ -18,6 +19,7 @@
     "url": "https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/",
     "onChangeFunc": "getFx",
     "defaultValue": "GBPUSD",
+    "chartType": "barChart",
     "filters": [
       {
         "id": 1,

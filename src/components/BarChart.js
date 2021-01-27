@@ -5,6 +5,7 @@ import {
   getChartData,
   getChartWidth,
   getChartHeight,
+  getChartType,
 } from '../slices/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -30,6 +31,7 @@ const BarChart = () => {
   const chartData = useSelector(getChartData);
   const chartWidth = useSelector(getChartWidth);
   const chartHeight = useSelector(getChartHeight);
+  const chartType = useSelector(getChartType);
 
   const despUpdateChartDims = () => dispatch(updateChartDims());
 
@@ -50,7 +52,7 @@ const BarChart = () => {
         width={chartWidth}
         height={chartHeight}
         data={chartData}
-        type=''
+        chartType={chartType}
       />
     </div>
   );

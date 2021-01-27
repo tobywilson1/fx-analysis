@@ -1,8 +1,12 @@
 import * as d3 from 'd3';
 import React, { useRef, useEffect } from 'react';
-import { barChart } from './barChart';
+import { barChart } from './drawFunctionsD3';
 
-function ChartD3({ width = 100, height = 100, data, type }) {
+const chartTypes = {
+  barChart,
+};
+
+function ChartD3({ width = 100, height = 100, data, chartType }) {
   const ref = useRef();
 
   useEffect(() => {
@@ -15,7 +19,7 @@ function ChartD3({ width = 100, height = 100, data, type }) {
     // eslint-disable-next-line
   }, [data, width, height]);
 
-  const draw = () => barChart(d3, ref, width, height, data);
+  const draw = () => chartTypes[chartType](d3, ref, width, height, data);
 
   return (
     <div>
