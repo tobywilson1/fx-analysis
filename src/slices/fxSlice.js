@@ -34,9 +34,8 @@ export const slice = createSlice({
       state.chartHeight = action.payload.height - 10;
     },
     SELECT_REPORT: (state, action) => {
-      const report = action.payload;
-      state.report = report;
-      state.reportConfig = getReportConfig(report);
+      state.report = action.payload.report;
+      state.reportConfig = action.payload.reportConfig;
       state.rawData = null;
       state.chartData = null;
     },
@@ -56,7 +55,7 @@ export const {
   UPDATE_CHART_DATA,
 } = slice.actions;
 
-// Thunk functions for async logic
+// Thunk functions with async logic for parsing API data
 export const getFx = (fxPair) => async (dispatch, getState) => {
   //debugger;
   try {
@@ -90,6 +89,8 @@ export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
     dispatch(SET_LOADING());
     console.log('getFrankfurter..');
     //const FX_URL = getConfig(getState().fx.report, 'url');
+
+    //load all data for all currencies before filtering later on
     const FX_URL = getState().fx.reportConfig.url;
     const fullURL = FX_URL;
     const res = await fetch(fullURL);
@@ -105,7 +106,7 @@ export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
       dailyData[0],
       dailyData[1][fxPair],
     ]);
-    console.log(typeof rawData);
+    //console.log(typeof rawData);
 
     // //save raw results
     dispatch(
@@ -141,16 +142,33 @@ export const updateChartDims = () => (dispatch) =>
 
 //Select report and refresh with default values
 export const selectReport = (report) => async (dispatch, getState) => {
-  dispatch(SELECT_REPORT(report));
-
-  //refresh chart
-  const refreshFunc = getState().fx.reportConfig.onChangeFunc;
-  const defaultValue = getState().fx.reportConfig.defaultValue;
-  if (defaultValue === 'GBP') {
-    dispatch(getFrankfurter()); //****refreshFunc is a string not a function ****
+  //if report parameter supplied then update report-related state, otherwise continue on to refresh
+  if (report) {
+    console.log('Selecting new report');
+    dispatch(
+      SELECT_REPORT({
+        report,
+        reportConfig: getReportConfig(report),
+      })
+    );
   } else {
-    dispatch(getFx(defaultValue)); //****refreshFunc is a string not a function ****
+    console.log('Refreshing chart data');
   }
+
+  //obtain data parsing functions
+  const thunkNameSpace = {
+    getFx,
+    getFrankfurter,
+  };
+
+  //refresh chart data
+  const refreshFuncString = getState().fx.reportConfig.onChangeFunc;
+  const defaultValue = getState().fx.reportConfig.defaultValue;
+
+  var reportRefreshFunc = thunkNameSpace[refreshFuncString];
+  console.log(`Refreshing report data via ${refreshFuncString}`);
+
+  dispatch(reportRefreshFunc(defaultValue));
 };
 
 export default slice.reducer;

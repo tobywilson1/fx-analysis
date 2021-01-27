@@ -5,7 +5,6 @@ import {
   getChartData,
   getChartWidth,
   getChartHeight,
-  getReportRefreshFuncWithDefaults,
 } from '../slices/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -31,7 +30,6 @@ const BarChart = () => {
   const chartData = useSelector(getChartData);
   const chartWidth = useSelector(getChartWidth);
   const chartHeight = useSelector(getChartHeight);
-  const reportRefreshFunc = useSelector(getReportRefreshFuncWithDefaults);
 
   const despUpdateChartDims = () => dispatch(updateChartDims());
 
@@ -44,12 +42,6 @@ const BarChart = () => {
     return () => {
       window.removeEventListener('resize', resizeFunc, false);
     };
-  }, []);
-
-  //update chart data
-  useEffect(() => {
-    dispatch(reportRefreshFunc());
-    console.log('refreshing chart to default values');
   }, []);
 
   return (
