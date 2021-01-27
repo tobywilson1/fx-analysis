@@ -196,7 +196,7 @@ export const selectReport = (report) => async (dispatch, getState) => {
     })
   );
 
-  refreshReport();
+  dispatch(refreshReport());
 };
 
 export default slice.reducer;
