@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { getChartWidth } from '../slices/selectors';
 import { barChart, linePlot } from './drawFunctionsD3';
 
 const chartTypes = {
@@ -9,18 +10,23 @@ const chartTypes = {
 
 function ChartD3({ width = 100, height = 100, data, chartType }) {
   const ref = useRef();
-
-  // useEffect(() => {
-  //   d3.select(ref.current).attr('width', width).attr('height', height);
-  //   //.style('border', '1px solid black');
-  // }, [width, height]);
+  const svg = d3.select(ref.current);
+  //const [chartSize, setChartSize] = useState({ width: 100, height: 100 });
 
   useEffect(() => {
-    const svg = d3.select(ref.current);
+    const { chartWidth, chartHeight } = chartTypes[chartType].resize(
+      width,
+      height
+    );
+    svg.attr('width', chartWidth).attr('height', chartHeight);
+    //.style('border', '1px solid black');
+  }, [width, height]);
+
+  useEffect(() => {
     svg.selectAll('*').remove();
-    const draw = () => chartTypes[chartType](d3, svg, width, height, data);
+    const draw = () => chartTypes[chartType].draw(d3, svg, width, height, data);
     data && draw();
-  }, [data, width, height]);
+  }, [data]);
 
   return (
     <div>
