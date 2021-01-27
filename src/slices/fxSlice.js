@@ -156,9 +156,5 @@ export const chartDataValue = (state) => state.fx.chartData;
 export const chartWidthValue = (state) => state.fx.chartWidth;
 export const chartHeightValue = (state) => state.fx.chartHeight;
 export const reportConfigValue = (state) => state.fx.reportConfig;
-export const getReportRefreshFunc = (state) =>
-  state.fx.reportConfig.onChangeFunc;
-export const getDefaultOptionValue = (state) =>
-  state.fx.reportConfig.defaultOptionValue;
 
 export default slice.reducer;

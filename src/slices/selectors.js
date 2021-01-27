@@ -17,3 +17,12 @@ export const getReportFilterDetails = createSelector(
     });
   }
 );
+
+export const getReportRefreshFunc = (state) =>
+  state.fx.reportConfig.onChangeFunc;
+export const getDefaultValue = (state) => state.fx.reportConfig.defaultValue;
+
+export const getReportRefreshFuncWithDefaults = createSelector(
+  [getReportRefreshFunc, getDefaultValue],
+  (onChangeFunc, defaultValue) => () => fxActions[onChangeFunc](defaultValue)
+);

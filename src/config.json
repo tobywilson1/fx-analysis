@@ -2,7 +2,7 @@
   "FrankBankAPI": {
     "url": "https://api.frankfurter.app/2020-10-01..2021-01-10",
     "onChangeFunc": "getFrankfurter",
-    "defaultOptionValue": "GBP",
+    "defaultValue": "GBP",
     "filters": [
       {
         "id": 1,
@@ -17,7 +17,7 @@
   "Test": {
     "url": "https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/",
     "onChangeFunc": "getFx",
-    "defaultOptionValue": "GBPUSD",
+    "defaultValue": "GBPUSD",
     "filters": [
       {
         "id": 1,
