@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import BarChartD3 from '../charts/BarChartD3';
+import ChartD3 from '../charts/ChartD3';
 import { updateChartDims } from '../slices/fxActions';
 import {
   getChartData,
@@ -46,7 +46,12 @@ const BarChart = () => {
 
   return (
     <div ref={chartRef} className='chartArea'>
-      <BarChartD3 width={chartWidth} height={chartHeight} data={chartData} />
+      <ChartD3
+        width={chartWidth}
+        height={chartHeight}
+        data={chartData}
+        type=''
+      />
     </div>
   );
 };

@@ -106,6 +106,8 @@ export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
       dailyData[0],
       dailyData[1][fxPair],
     ]);
+
+    rawData.unshift(['date', 'value']);
     //console.log(typeof rawData);
 
     // //save raw results
