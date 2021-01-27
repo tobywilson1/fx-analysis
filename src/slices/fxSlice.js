@@ -17,8 +17,7 @@ export const slice = createSlice({
   },
   //these are the simple actions that work directly on the state
   reducers: {
-    GET_FX: (state, action) => {
-      state.fxPair = action.payload.fxPair;
+    UPDATE_CHART_DATA: (state, action) => {
       state.chartData = action.payload.timeSeries;
       state.loading = false;
     },
@@ -54,6 +53,7 @@ export const {
   CHART_RESIZE,
   SELECT_REPORT,
   SAVE_RAW_DATA,
+  UPDATE_CHART_DATA,
 } = slice.actions;
 
 // Thunk functions for async logic
@@ -77,7 +77,7 @@ export const getFx = (fxPair) => async (dispatch, getState) => {
       dispatch(FX_ERROR(data.status));
     }
 
-    dispatch(GET_FX({ fxPair, timeSeries: data.timeSeries }));
+    dispatch(UPDATE_CHART_DATA({ fxPair, timeSeries: data.timeSeries }));
   } catch (error) {
     console.error(String(error));
     dispatch(FX_ERROR(String(error)));
@@ -128,7 +128,7 @@ export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
     //const fxPair = 'GBP';
     //timeSeries = [1, 2, 3];
 
-    dispatch(GET_FX({ fxPair, timeSeries }));
+    dispatch(UPDATE_CHART_DATA({ fxPair, timeSeries }));
   } catch (error) {
     console.error(String(error));
     dispatch(FX_ERROR(String(error)));
@@ -145,8 +145,12 @@ export const selectReport = (report) => async (dispatch, getState) => {
 
   //refresh chart
   const refreshFunc = getState().fx.reportConfig.onChangeFunc;
-  const defaultOptionValue = getState().fx.reportConfig.defaultOptionValue;
-  dispatch(getFx(defaultOptionValue)); //****refreshFunc is a string not a function ****
+  const defaultValue = getState().fx.reportConfig.defaultValue;
+  if (defaultValue === 'GBP') {
+    dispatch(getFrankfurter()); //****refreshFunc is a string not a function ****
+  } else {
+    dispatch(getFx(defaultValue)); //****refreshFunc is a string not a function ****
+  }
 };
 
 export default slice.reducer;
