@@ -3,7 +3,7 @@
     "url": "https://api.frankfurter.app/2020-10-01..2021-01-10",
     "onChangeFunc": "getFrankfurter",
     "defaultValue": "GBP",
-    "chartType": "barChart",
+    "chartType": "linePlot",
     "filters": [
       {
         "id": 1,

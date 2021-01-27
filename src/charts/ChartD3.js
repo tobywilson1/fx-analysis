@@ -1,9 +1,10 @@
 import * as d3 from 'd3';
 import React, { useRef, useEffect } from 'react';
-import { barChart } from './drawFunctionsD3';
+import { barChart, linePlot } from './drawFunctionsD3';
 
 const chartTypes = {
   barChart,
+  linePlot,
 };
 
 function ChartD3({ width = 100, height = 100, data, chartType }) {
