@@ -1,5 +1,5 @@
-export const barChart = (d3, ref, width, height, data) => {
-  const svg = d3.select(ref.current);
+export const barChart = (d3, svg, width, height, data) => {
+  console.log('rendering barChart..');
   var selection = svg.selectAll('rect').data(data);
   var yScale = d3
     .scaleLinear()
@@ -34,8 +34,8 @@ export const barChart = (d3, ref, width, height, data) => {
     .remove();
 };
 
-export const linePlot = (d3, ref, width, height, data) => {
-  const svg = d3.select(ref.current);
+export const linePlot = (d3, svg, width, height, data) => {
+  console.log('rendering linePlot..');
 
   const parser = function (d) {
     return { date: d3.timeParse('%Y-%m-%d')(d[0]), value: d[1] };

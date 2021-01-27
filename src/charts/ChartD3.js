@@ -16,11 +16,11 @@ function ChartD3({ width = 100, height = 100, data, chartType }) {
   }, [width, height]);
 
   useEffect(() => {
+    const svg = d3.select(ref.current);
+    svg.selectAll('*').remove();
+    const draw = () => chartTypes[chartType](d3, svg, width, height, data);
     data && draw();
-    // eslint-disable-next-line
   }, [data, width, height]);
-
-  const draw = () => chartTypes[chartType](d3, ref, width, height, data);
 
   return (
     <div>
