@@ -24,7 +24,7 @@ function ChartD3({ width = 100, height = 100, data, chartType }) {
     //   .append('g')
     //   .attr('transform', 'translate(' + 30 + ',' + 50 + ')');
     // setSvg(svg);
-    const d3ChartObj = new chartTypes[chartType](d3, ref, width, height);
+    const d3ChartObj = new chartTypes[chartType](d3, ref);
     setD3ChartObj(d3ChartObj);
     setChartObjCreated(true);
     //d3ChartObj.resize(svg, width, height);
@@ -39,13 +39,17 @@ function ChartD3({ width = 100, height = 100, data, chartType }) {
   // useEffect(() => {
   //   console.log('Resizing D3 chart');
   //   if (chartObjCreated) {
-  //     d3ChartObj.resize(svg, width, height);
+  //     d3ChartObj.resize(width, height);
   //   }
   // }, [width, height]);
 
   useEffect(() => {
     //data && svg.selectAll('*').remove();
-    const draw = () => d3ChartObj.draw(data);
+
+    const draw = () => {
+      d3ChartObj.clearSvg();
+      d3ChartObj.draw(data, width, height);
+    };
     chartObjCreated && data && draw();
   }, [width, height, data]);
 

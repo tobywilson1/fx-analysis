@@ -7,33 +7,42 @@ export class baseChart {
   clearSvg() {
     this.d3.select(this.ref.current).select('svg').remove();
   }
+
+  clearElements() {
+    this.d3.select(this.ref.current).select('svg').selectAll('*').remove();
+  }
 }
 
 export class barChart extends baseChart {
-  constructor(d3, ref, width, height) {
+  constructor(d3, ref) {
     super(d3, ref);
-    this.width = width;
-    this.height = height;
+  }
 
-    this.svg = d3
+  // resize(width, height) {
+  //   const svg=this.svg
+  // //   this.width = width;
+  // //   this.height = height;
+  // //   svg.attr('width', this.width).attr('height', this.height);
+  // }
+
+  draw(data, width, height) {
+    console.log('rendering barChart..');
+
+    // this.width = width;
+    // this.height = height;
+    const d3 = this.d3;
+    const ref = this.ref;
+
+    const svg = d3
       .select(ref.current)
       .append('svg')
       .attr('width', width)
       .attr('height', height);
-  }
 
-  // resize(svg, width, height) {
-  //   this.width = width;
-  //   this.height = height;
-  //   svg.attr('width', this.width).attr('height', this.height);
-  // }
-
-  draw(data) {
-    console.log('rendering barChart..');
-    const width = this.width;
-    const height = this.height;
-    const svg = this.svg;
-    const d3 = this.d3;
+    // const width = this.width;
+    // const height = this.height;
+    // const svg = this.svg;
+    // const d3 = this.d3;
 
     var selection = svg.selectAll('rect').data(data);
     var yScale = d3
@@ -71,8 +80,44 @@ export class barChart extends baseChart {
 }
 
 export class linePlot extends baseChart {
-  constructor(d3, ref, width, height) {
+  constructor(d3, ref) {
     super(d3, ref);
+
+    // this.svg = d3.select(ref.current).append('svg');
+    // .attr('width', this.width + margin.left + margin.right)
+    // .attr('height', this.height + margin.top + margin.bottom);
+
+    // this.svg = this.svg.append('g');
+    // .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+  }
+
+  // resize(width, height) {
+  //   const svg = this.svg;
+  //   const d3 = this.d3;
+
+  //   const margin = {
+  //     top: 50, //10,
+  //     right: 50, // 30,
+  //     bottom: 50, //this is space for x-axis
+  //     left: 50, //60,
+  //   };
+
+  //   this.width = width - margin.left - margin.right;
+  //   this.height = height - margin.top - margin.bottom;
+
+  //   d3.select('svg')
+  //     .attr('width', this.width + margin.left + margin.right)
+  //     .attr('height', this.height + margin.top + margin.bottom);
+
+  //   svg.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+  // }
+
+  draw(data, width, height) {
+    console.log('rendering linePlot..');
+
+    const d3 = this.d3;
+    const ref = this.ref;
+
     const margin = {
       top: 50, //10,
       right: 50, // 30,
@@ -80,46 +125,18 @@ export class linePlot extends baseChart {
       left: 50, //60,
     };
 
-    this.width = width - margin.left - margin.right;
-    this.height = height - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    height = height - margin.top - margin.bottom;
 
-    this.svg = d3
+    let svg = d3
       .select(ref.current)
       .append('svg')
-      //.attr('viewBox', [100, 100, 300, 600])
-      .attr('width', this.width + margin.left + margin.right)
-      .attr('height', this.height + margin.top + margin.bottom);
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom);
 
-    this.svg = this.svg
+    svg = svg
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-  }
-
-  // resize(svg, width, height) {
-  //   // set the dimensions and margins of the graph
-  //   const margin = {
-  //     top: 0, //10,
-  //     right: 0, // 30,
-  //     bottom: 0, //this is space for x-axis
-  //     left: 0, //60,
-  //   };
-
-  //   this.width = width - margin.left - margin.right;
-  //   this.height = height - margin.top - margin.bottom;
-
-  //   svg
-  //     .attr('width', this.width + margin.left + margin.right)
-  //     .attr('height', this.height + margin.top + margin.bottom);
-  //   // .append('g')
-  //   // .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-  // }
-
-  draw(data) {
-    console.log('rendering linePlot..');
-    const width = this.width;
-    const height = this.height;
-    const svg = this.svg;
-    const d3 = this.d3;
 
     const parser = function (d) {
       return { date: d3.timeParse('%Y-%m-%d')(d[0]), value: d[1] };
@@ -178,28 +195,8 @@ export class linePlot extends baseChart {
 }
 
 export class Testing extends baseChart {
-  constructor(d3, ref, width, height) {
+  constructor(d3, ref) {
     super(d3, ref);
-    let svg = d3.select(ref.current).append('svg');
-
-    svg
-      .append('circle')
-      .attr('cx', 2)
-      .attr('cy', 2)
-      .attr('r', 40)
-      .style('fill', 'blue');
-    svg
-      .append('circle')
-      .attr('cx', 140)
-      .attr('cy', 70)
-      .attr('r', 40)
-      .style('fill', 'red');
-    svg
-      .append('circle')
-      .attr('cx', 300)
-      .attr('cy', 100)
-      .attr('r', 40)
-      .style('fill', 'green');
   }
 
   // resize(svg, width, height) {
@@ -221,7 +218,29 @@ export class Testing extends baseChart {
   //   // .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
   // }
 
-  draw(data) {
-    console.log('do nothing..');
+  draw(data, width, height) {
+    const d3 = this.d3;
+    const ref = this.ref;
+
+    let svg = d3.select(ref.current).append('svg');
+
+    svg
+      .append('circle')
+      .attr('cx', 2)
+      .attr('cy', 2)
+      .attr('r', 40)
+      .style('fill', 'blue');
+    svg
+      .append('circle')
+      .attr('cx', 140)
+      .attr('cy', 70)
+      .attr('r', 40)
+      .style('fill', 'red');
+    svg
+      .append('circle')
+      .attr('cx', 300)
+      .attr('cy', 100)
+      .attr('r', 40)
+      .style('fill', 'green');
   }
 }
