@@ -4,13 +4,10 @@ export class barChart {
     this.height = 100;
   }
 
-  resize(width, height) {
+  resize(svg, width, height) {
     this.width = width;
     this.height = height;
-    return {
-      chartWidth: width,
-      chartHeight: height,
-    };
+    svg.attr('width', this.width).attr('height', this.height);
   }
 
   draw(d3, svg, data) {
@@ -96,6 +93,7 @@ export class linePlot {
         })
       )
       .range([0, width]);
+
     svg
       .append('g')
       .attr('transform', 'translate(0,' + height + ')')
@@ -113,6 +111,7 @@ export class linePlot {
         }),
       ])
       .range([height, 0]);
+
     svg.append('g').call(d3.axisLeft(y));
 
     // Add the line
