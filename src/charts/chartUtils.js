@@ -1,16 +1,10 @@
-export const handleFrameResize = (
-  svg,
-  width,
-  height,
-  chartTypes,
-  chartType
-) => {
+export const handleFrameResize = (svg, width, height, chartRef) => {
   const {
     chartWidth,
     chartHeight,
     chartMarginLeft,
     chartMarginRight,
-  } = chartTypes[chartType].resize(width, height);
+  } = chartRef.resize(width, height);
 
   svg.attr('width', chartWidth).attr('height', chartHeight);
 

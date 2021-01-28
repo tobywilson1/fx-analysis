@@ -1,11 +1,17 @@
-export const barChart = {
-  resize: (width, height) => {
+export class barChart {
+  constructor() {
+    this.width = 100;
+    this.height = 100;
+  }
+
+  resize(width, height) {
     return {
       chartWidth: width,
       chartHeight: height,
     };
-  },
-  draw: (d3, svg, width, height, data) => {
+  }
+
+  draw(d3, svg, width, height, data) {
     console.log('rendering barChart..');
     var selection = svg.selectAll('rect').data(data);
     var yScale = d3
@@ -39,11 +45,16 @@ export const barChart = {
       .attr('y', (d) => height)
       .attr('height', 0)
       .remove();
-  },
-};
+  }
+}
 
-export const linePlot = {
-  resize: (width, height) => {
+export class linePlot {
+  constructor() {
+    this.width = 100;
+    this.height = 100;
+  }
+
+  resize(width, height) {
     // set the dimensions and margins of the graph
     const margin = {
       top: 10,
@@ -61,8 +72,9 @@ export const linePlot = {
       chartMarginLeft: margin.left,
       chartMarginRight: margin.right,
     };
-  },
-  draw: (d3, svg, width, height, data) => {
+  }
+
+  draw(d3, svg, width, height, data) {
     console.log('rendering linePlot..');
 
     const parser = function (d) {
@@ -114,5 +126,5 @@ export const linePlot = {
             return y(d.value);
           })
       );
-  },
-};
+  }
+}
