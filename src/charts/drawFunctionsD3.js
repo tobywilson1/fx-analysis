@@ -5,14 +5,18 @@ export class barChart {
   }
 
   resize(width, height) {
+    this.width = width;
+    this.height = height;
     return {
       chartWidth: width,
       chartHeight: height,
     };
   }
 
-  draw(d3, svg, width, height, data) {
+  draw(d3, svg, data) {
     console.log('rendering barChart..');
+    const width = this.width;
+    const height = this.height;
     var selection = svg.selectAll('rect').data(data);
     var yScale = d3
       .scaleLinear()
@@ -63,19 +67,21 @@ export class linePlot {
       left: 60,
     };
 
-    width = width - margin.left - margin.right;
-    height = height - margin.top - margin.bottom;
+    this.width = width - margin.left - margin.right;
+    this.height = height - margin.top - margin.bottom;
 
     return {
-      chartWidth: width + margin.left + margin.right,
-      chartHeight: height + margin.top + margin.bottom,
+      chartWidth: width,
+      chartHeight: height,
       chartMarginLeft: margin.left,
       chartMarginRight: margin.right,
     };
   }
 
-  draw(d3, svg, width, height, data) {
+  draw(d3, svg, data) {
     console.log('rendering linePlot..');
+    const width = this.width;
+    const height = this.height;
 
     const parser = function (d) {
       return { date: d3.timeParse('%Y-%m-%d')(d[0]), value: d[1] };

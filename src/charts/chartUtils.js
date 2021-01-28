@@ -10,7 +10,7 @@ export const handleFrameResize = (svg, width, height, chartRef) => {
 
   if (chartMarginLeft || chartMarginRight) {
     svg
-      //.append('g')
+      .append('g')
       .attr(
         'transform',
         'translate(' + chartMarginLeft + ',' + chartMarginRight + ')'

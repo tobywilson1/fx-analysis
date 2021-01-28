@@ -18,18 +18,24 @@ function ChartD3({ width = 100, height = 100, data, chartType }) {
   //create a new chart object, which is available to other useEffects in next render cycle
   //trigger a rerender by setting the chartObjCreated state
   useEffect(() => {
-    setD3ChartObj(new chartTypes[chartType]());
+    const d3ChartObj = new chartTypes[chartType]();
+    setD3ChartObj(d3ChartObj);
     setChartObjCreated(true);
-    return () => setChartObjCreated(false);
+    handleFrameResize(svg, width, height, d3ChartObj);
+    return () => {
+      setD3ChartObj(null);
+      setChartObjCreated(false);
+    };
   }, [chartType]);
 
   useEffect(() => {
+    console.log('Resizing D3 chart');
     chartObjCreated && handleFrameResize(svg, width, height, d3ChartObj);
   }, [width, height]);
 
   useEffect(() => {
     svg.selectAll('*').remove();
-    const draw = () => d3ChartObj.draw(d3, svg, width, height, data);
+    const draw = () => d3ChartObj.draw(d3, svg, data);
     chartObjCreated && data && draw();
   }, [data]);
 
