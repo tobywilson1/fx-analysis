@@ -24,7 +24,7 @@ const resizeChart = (chartRef, updateFunc) => {
   updateFunc();
 };
 
-const BarChart = () => {
+const Chart = () => {
   const chartRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -58,4 +58,4 @@ const BarChart = () => {
   );
 };
 
-export default BarChart;
+export default Chart;

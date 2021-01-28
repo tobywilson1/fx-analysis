@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import BarChart from './components/BarChart';
+import Chart from './components/Chart';
 import Header from './components/Header';
 import Filter from './components/Filter';
 import M from 'materialize-css/dist/js/materialize.min.js';
@@ -18,7 +18,7 @@ function App() {
       <Header />
       <div className='row'>
         <div className='col s9 border'>
-          <BarChart />
+          <Chart />
         </div>
         <div className='col s3 border'>
           <Filter />
