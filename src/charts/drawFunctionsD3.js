@@ -1,19 +1,40 @@
-export class barChart {
-  constructor() {
-    this.width = 100;
-    this.height = 100;
+export class baseChart {
+  constructor(d3, ref) {
+    this.ref = ref;
+    this.d3 = d3;
   }
 
-  resize(svg, width, height) {
+  clearSvg() {
+    this.d3.select(this.ref.current).select('svg').remove();
+  }
+}
+
+export class barChart extends baseChart {
+  constructor(d3, ref, width, height) {
+    super(d3, ref);
     this.width = width;
     this.height = height;
-    svg.attr('width', this.width).attr('height', this.height);
+
+    this.svg = d3
+      .select(ref.current)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
   }
 
-  draw(d3, svg, data) {
+  // resize(svg, width, height) {
+  //   this.width = width;
+  //   this.height = height;
+  //   svg.attr('width', this.width).attr('height', this.height);
+  // }
+
+  draw(data) {
     console.log('rendering barChart..');
     const width = this.width;
     const height = this.height;
+    const svg = this.svg;
+    const d3 = this.d3;
+
     var selection = svg.selectAll('rect').data(data);
     var yScale = d3
       .scaleLinear()
@@ -49,35 +70,56 @@ export class barChart {
   }
 }
 
-export class linePlot {
-  constructor() {
-    this.width = 100;
-    this.height = 100;
-  }
-
-  resize(svg, width, height) {
-    // set the dimensions and margins of the graph
+export class linePlot extends baseChart {
+  constructor(d3, ref, width, height) {
+    super(d3, ref);
     const margin = {
-      top: 0, //10,
-      right: 0, // 30,
-      bottom: 30, //this is space for x-axis
-      left: 30, //60,
+      top: 50, //10,
+      right: 50, // 30,
+      bottom: 50, //this is space for x-axis
+      left: 50, //60,
     };
 
     this.width = width - margin.left - margin.right;
     this.height = height - margin.top - margin.bottom;
 
-    svg
+    this.svg = d3
+      .select(ref.current)
+      .append('svg')
+      //.attr('viewBox', [100, 100, 300, 600])
       .attr('width', this.width + margin.left + margin.right)
-      .attr('height', this.height + margin.top + margin.bottom)
+      .attr('height', this.height + margin.top + margin.bottom);
+
+    this.svg = this.svg
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
   }
 
-  draw(d3, svg, data) {
+  // resize(svg, width, height) {
+  //   // set the dimensions and margins of the graph
+  //   const margin = {
+  //     top: 0, //10,
+  //     right: 0, // 30,
+  //     bottom: 0, //this is space for x-axis
+  //     left: 0, //60,
+  //   };
+
+  //   this.width = width - margin.left - margin.right;
+  //   this.height = height - margin.top - margin.bottom;
+
+  //   svg
+  //     .attr('width', this.width + margin.left + margin.right)
+  //     .attr('height', this.height + margin.top + margin.bottom);
+  //   // .append('g')
+  //   // .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+  // }
+
+  draw(data) {
     console.log('rendering linePlot..');
     const width = this.width;
     const height = this.height;
+    const svg = this.svg;
+    const d3 = this.d3;
 
     const parser = function (d) {
       return { date: d3.timeParse('%Y-%m-%d')(d[0]), value: d[1] };
@@ -132,5 +174,54 @@ export class linePlot {
             return y(d.value);
           })
       );
+  }
+}
+
+export class Testing extends baseChart {
+  constructor(d3, ref, width, height) {
+    super(d3, ref);
+    let svg = d3.select(ref.current).append('svg');
+
+    svg
+      .append('circle')
+      .attr('cx', 2)
+      .attr('cy', 2)
+      .attr('r', 40)
+      .style('fill', 'blue');
+    svg
+      .append('circle')
+      .attr('cx', 140)
+      .attr('cy', 70)
+      .attr('r', 40)
+      .style('fill', 'red');
+    svg
+      .append('circle')
+      .attr('cx', 300)
+      .attr('cy', 100)
+      .attr('r', 40)
+      .style('fill', 'green');
+  }
+
+  // resize(svg, width, height) {
+  //   // set the dimensions and margins of the graph
+  //   const margin = {
+  //     top: 0, //10,
+  //     right: 0, // 30,
+  //     bottom: 0, //this is space for x-axis
+  //     left: 0, //60,
+  //   };
+
+  //   this.width = width - margin.left - margin.right;
+  //   this.height = height - margin.top - margin.bottom;
+
+  //   svg
+  //     .attr('width', this.width + margin.left + margin.right)
+  //     .attr('height', this.height + margin.top + margin.bottom);
+  //   // .append('g')
+  //   // .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+  // }
+
+  draw(data) {
+    console.log('do nothing..');
   }
 }

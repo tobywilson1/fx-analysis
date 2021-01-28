@@ -30,5 +30,21 @@
         "defaultOptionValue": "GBPUSD"
       }
     ]
+  },
+  "Testing": {
+    "url": "https://api.frankfurter.app/2020-12-01..2021-01-10",
+    "onChangeFunc": "getFrankfurter",
+    "defaultValue": "GBP",
+    "chartType": "Testing",
+    "filters": [
+      {
+        "id": 1,
+        "labelText": "FX pairs",
+        "optionValues": ["CHF", "GBP"],
+        "inputFieldName": "Filter1",
+        "onChangeFunc": "getFrankfurter",
+        "defaultOptionValue": "GBP"
+      }
+    ]
   }
 }

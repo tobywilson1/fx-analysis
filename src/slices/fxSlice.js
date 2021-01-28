@@ -190,7 +190,7 @@ export const applyDefaultFilters = () => async (dispatch, getState) => {
 
 //Select report
 export const selectReport = (report) => async (dispatch, getState) => {
-  console.log('Selecting new report');
+  console.log(`Selecting new report ${report}`);
   dispatch(
     SELECT_REPORT({
       report,
