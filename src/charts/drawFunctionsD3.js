@@ -14,9 +14,9 @@ export class baseChart {
 }
 
 export class barChart extends baseChart {
-  constructor(d3, ref) {
-    super(d3, ref);
-  }
+  // constructor(d3, ref) {
+  //   super(d3, ref);
+  // }
 
   draw(data, width, height) {
     console.log('rendering barChart..');
@@ -66,9 +66,9 @@ export class barChart extends baseChart {
 }
 
 export class linePlot extends baseChart {
-  constructor(d3, ref) {
-    super(d3, ref);
-  }
+  // constructor(d3, ref) {
+  //   super(d3, ref);
+  // }
 
   draw(data, width, height) {
     console.log('rendering linePlot..');
@@ -153,9 +153,9 @@ export class linePlot extends baseChart {
 }
 
 export class Testing extends baseChart {
-  constructor(d3, ref) {
-    super(d3, ref);
-  }
+  // constructor(d3, ref) {
+  //   super(d3, ref);
+  // }
 
   draw(data, width, height) {
     const d3 = this.d3;

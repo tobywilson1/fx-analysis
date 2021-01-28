@@ -24,6 +24,7 @@ function ChartD3({ width = 100, height = 100, data, chartType }) {
       setD3ChartObj(null);
       setChartObjCreated(false);
     };
+    //eslint-disable-next-line
   }, [chartType]);
 
   useEffect(() => {
@@ -32,6 +33,7 @@ function ChartD3({ width = 100, height = 100, data, chartType }) {
       d3ChartObj.draw(data, width, height);
     };
     chartObjCreated && data && draw();
+    //eslint-disable-next-line
   }, [width, height, data]);
 
   return <div ref={ref}></div>;

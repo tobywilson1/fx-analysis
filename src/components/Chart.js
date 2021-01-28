@@ -44,6 +44,7 @@ const Chart = () => {
     return () => {
       window.removeEventListener('resize', resizeFunc, false);
     };
+    //eslint-disable-next-line
   }, []);
 
   return (
