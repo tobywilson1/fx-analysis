@@ -58,24 +58,23 @@ export class linePlot {
     this.height = 100;
   }
 
-  resize(width, height) {
+  resize(svg, width, height) {
     // set the dimensions and margins of the graph
     const margin = {
-      top: 10,
-      right: 30,
-      bottom: 30,
-      left: 60,
+      top: 0, //10,
+      right: 0, // 30,
+      bottom: 30, //this is space for x-axis
+      left: 30, //60,
     };
 
     this.width = width - margin.left - margin.right;
     this.height = height - margin.top - margin.bottom;
 
-    return {
-      chartWidth: width,
-      chartHeight: height,
-      chartMarginLeft: margin.left,
-      chartMarginRight: margin.right,
-    };
+    svg
+      .attr('width', this.width + margin.left + margin.right)
+      .attr('height', this.height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
   }
 
   draw(d3, svg, data) {
@@ -106,7 +105,9 @@ export class linePlot {
     var y = d3
       .scaleLinear()
       .domain([
-        0,
+        d3.min(data, function (d) {
+          return +d.value;
+        }),
         d3.max(data, function (d) {
           return +d.value;
         }),

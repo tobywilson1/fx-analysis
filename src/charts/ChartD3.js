@@ -1,7 +1,6 @@
 import * as d3 from 'd3';
 import React, { useRef, useEffect, useState } from 'react';
 import { barChart, linePlot } from './drawFunctionsD3';
-import { handleFrameResize } from './chartUtils';
 
 const chartTypes = {
   barChart,
@@ -21,7 +20,7 @@ function ChartD3({ width = 100, height = 100, data, chartType }) {
     const d3ChartObj = new chartTypes[chartType]();
     setD3ChartObj(d3ChartObj);
     setChartObjCreated(true);
-    handleFrameResize(svg, width, height, d3ChartObj);
+    d3ChartObj.resize(svg, width, height);
     return () => {
       setD3ChartObj(null);
       setChartObjCreated(false);
@@ -30,7 +29,7 @@ function ChartD3({ width = 100, height = 100, data, chartType }) {
 
   useEffect(() => {
     console.log('Resizing D3 chart');
-    chartObjCreated && handleFrameResize(svg, width, height, d3ChartObj);
+    chartObjCreated && d3ChartObj.resize(svg, width, height);
   }, [width, height]);
 
   useEffect(() => {
