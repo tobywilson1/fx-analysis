@@ -2,9 +2,11 @@
 
 Sources fx data asynchronously from a REST API and displays in a D3 chart based on user-entered filters e.g. fx pair.
 
----
+[Live example](https://xenodochial-hugle-c67805.netlify.app/)
 
-### Version: 1.0.0
+![](preview.jpg)
+
+#### Version: 1.0.1
 
 ---
 
@@ -13,7 +15,6 @@ Sources fx data asynchronously from a REST API and displays in a D3 chart based 
 - Sources FX data from a REST API via asynchronous requests.
 - D3 chart updates when response is received back.
 - React component-based UI
-- D3 chart is defined independently of React component.
 - State management using Redux.
 
 ---
@@ -30,16 +31,12 @@ $ npm start
 
 ---
 
-### 🤔 How to use it?
+### 🤔 Usage
 
-#### 1. Configure URL of REST API
+#### 1. Update config of REST API and Chart options
 
-Update the .env file in the root directory.
+The file src/config.json covers all config.
 
-#### 2. Define structure of data in db.json file
+#### 2. D3 charts
 
-This can be used as a test file served by json-server fake API.
-
-#### 3. D3 charts
-
-D3 charts are saved in the src/charts directory.
+D3 charts are defined as classes and saved in the src/charts directory.
