@@ -116,7 +116,7 @@ export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
     //need to parse the returned object
     const timeSeries = Object.entries(data.rates).map((dailyData) => [
       dailyData[0],
-      dailyData[1][fxPair],
+      dailyData[1][fxPair.substring(3)],
     ]);
 
     //rawData.unshift(['date', 'value']);

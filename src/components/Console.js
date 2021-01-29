@@ -20,7 +20,7 @@ const LogsContainer = () => {
     <div className='console-container '>
       <ConsoleCheckbox clickHandler={() => setShowConsole(!showConsole)} />
       {showConsole && (
-        <div className='console teal lighten-1'>
+        <div className='console blue-grey lighten-2'>
           <Console logs={logs} />
         </div>
       )}

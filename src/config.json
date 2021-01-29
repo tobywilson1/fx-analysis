@@ -2,16 +2,16 @@
   "FrankBankAPI": {
     "url": "https://api.frankfurter.app/2020-10-01..2021-01-10",
     "onChangeFunc": "getFrankfurter",
-    "defaultValue": "GBP",
+    "defaultValue": "EURGBP",
     "chartType": "linePlot",
     "filters": [
       {
         "id": 1,
         "labelText": "FX pairs",
-        "optionValues": ["CHF", "GBP"],
+        "optionValues": ["EURCHF", "EURGBP"],
         "inputFieldName": "Filter1",
         "onChangeFunc": "getFrankfurter",
-        "defaultOptionValue": "GBP"
+        "defaultOptionValue": "EURGBP"
       }
     ]
   },
