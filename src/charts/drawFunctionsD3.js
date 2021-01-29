@@ -189,7 +189,7 @@ export class linePlot extends baseChart {
       // Specify where to put label of text
       svg
         .append('text')
-        .attr('id', 't' + d.x + '-' + d.y + '-' + i) // Create an id for text so we can select it later for removing on mouseout
+        .attr('id', 't' + d3.timeFormat('%a%d')(d.date) + '-' + i) // Create an id for text so we can select it later for removing on mouseout
         .attr('x', function () {
           return xScale(d.date) - 30;
         })
@@ -197,7 +197,7 @@ export class linePlot extends baseChart {
           return yScale(d.value) - 15;
         })
         .text(function () {
-          return [d.date, d.value]; // Value of the text
+          return [d3.timeFormat('%d%b')(d.date), d.value]; // Value of the text
         });
     }
 
@@ -209,7 +209,7 @@ export class linePlot extends baseChart {
       d3.select(this).attr('fill', 'black').attr('r', radius);
 
       // Select text by id and then remove
-      d3.select('#t' + d.x + '-' + d.y + '-' + i).remove(); // Remove text location
+      d3.select('#t' + d3.timeFormat('%a%d')(d.date) + '-' + i).remove(); // Remove text location
     }
   }
 }
