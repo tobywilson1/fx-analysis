@@ -102,7 +102,7 @@ export class linePlot extends baseChart {
 
     data = data.map((record) => parser(record));
 
-    var x = d3
+    var xScale = d3
       .scaleTime()
       .domain(
         d3.extent(data, function (d) {
@@ -114,22 +114,22 @@ export class linePlot extends baseChart {
     svg
       .append('g')
       .attr('transform', 'translate(0,' + height + ')')
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(xScale));
 
     // Add Y axis
-    var y = d3
+    var yScale = d3
       .scaleLinear()
       .domain([
         d3.min(data, function (d) {
-          return +d.value;
+          return +d.value * 0.9;
         }),
         d3.max(data, function (d) {
-          return +d.value;
+          return +d.value * 1.1;
         }),
       ])
       .range([height, 0]);
 
-    svg.append('g').call(d3.axisLeft(y));
+    svg.append('g').call(d3.axisLeft(yScale));
 
     // Add the line
     svg
@@ -143,16 +143,77 @@ export class linePlot extends baseChart {
         d3
           .line()
           .x(function (d) {
-            return x(d.date);
+            return xScale(d.date);
           })
           .y(function (d) {
-            return y(d.value);
+            return yScale(d.value);
           })
       );
+
+    //add circles
+    var radius = 2;
+
+    var circleAttrs = {
+      cx: function (d) {
+        return xScale(d.date);
+      },
+      cy: function (d) {
+        return yScale(d.value);
+      },
+      r: radius,
+    };
+
+    svg
+      .selectAll('circle')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx', circleAttrs.cx)
+      .attr('cy', circleAttrs.cy)
+      .attr('r', circleAttrs.r)
+      .on('mouseover', handleMouseOver)
+      .on('mouseout', handleMouseOut);
+
+    // Create Event Handlers for mouse
+    function handleMouseOver(event, d) {
+      // Add interactivity
+
+      const e = svg.selectAll('circle').nodes();
+      const i = e.indexOf(event.currentTarget);
+
+      // Use D3 to select element, change color and size
+      d3.select(this)
+        .attr('fill', 'orange')
+        .attr('r', radius * 4);
+
+      // Specify where to put label of text
+      svg
+        .append('text')
+        .attr('id', 't' + d.x + '-' + d.y + '-' + i) // Create an id for text so we can select it later for removing on mouseout
+        .attr('x', function () {
+          return xScale(d.date) - 30;
+        })
+        .attr('y', function () {
+          return yScale(d.value) - 15;
+        })
+        .text(function () {
+          return [d.date, d.value]; // Value of the text
+        });
+    }
+
+    function handleMouseOut(event, d) {
+      const e = svg.selectAll('circle').nodes();
+      const i = e.indexOf(event.currentTarget);
+
+      // Use D3 to select element, change color back to normal
+      d3.select(this).attr('fill', 'black').attr('r', radius);
+
+      // Select text by id and then remove
+      d3.select('#t' + d.x + '-' + d.y + '-' + i).remove(); // Remove text location
+    }
   }
 }
 
-//***PARTIALLY WORKING EXAMPLE SHOWING CIRCLES DRAWN AT DATA POINTS */
 export class Testing extends baseChart {
   // constructor(d3, ref) {
   //   super(d3, ref);
