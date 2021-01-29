@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Chart from './components/Chart';
 import Header from './components/Header';
 import Filter from './components/Filter';
-import { LogsContainer } from './components/Console';
+import Console from './components/Console';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { refreshReport } from './slices/fxActions';
 import { useDispatch } from 'react-redux';
@@ -24,7 +24,7 @@ function App() {
         <div className='col s3 border'>
           <div className='panel'>
             <Filter />
-            <LogsContainer />
+            <Console />
           </div>
         </div>
       </div>

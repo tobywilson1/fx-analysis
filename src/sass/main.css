@@ -60,6 +60,10 @@
   overflow: scroll;
 }
 
+.console-container {
+  margin: 0 0.75rem;
+}
+
 .panel {
   display: -webkit-box;
   display: -ms-flexbox;

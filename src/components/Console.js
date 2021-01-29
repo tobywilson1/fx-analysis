@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Console, Hook, Unhook } from 'console-feed';
+import ConsoleCheckbox from './ConsoleCheckbox';
 
 const LogsContainer = () => {
+  const [showConsole, setShowConsole] = useState(false);
   const [logs, setLogs] = useState([]);
 
   // run once!
@@ -15,10 +17,15 @@ const LogsContainer = () => {
   }, []);
 
   return (
-    <div className='console teal lighten-1'>
-      <Console logs={logs} />
+    <div className='console-container '>
+      <ConsoleCheckbox clickHandler={() => setShowConsole(!showConsole)} />
+      {showConsole && (
+        <div className='console teal lighten-1'>
+          <Console logs={logs} />
+        </div>
+      )}
     </div>
   );
 };
 
-export { LogsContainer };
+export default LogsContainer;
