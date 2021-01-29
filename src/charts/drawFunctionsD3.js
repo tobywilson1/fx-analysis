@@ -269,6 +269,8 @@ export class Testing extends baseChart {
         y: Math.round(yScale.invert(coords[1])),
       };
 
+      //console.log(newData);
+
       dataset.push(newData); // Push data to our array
 
       svg
@@ -284,8 +286,11 @@ export class Testing extends baseChart {
     });
 
     // Create Event Handlers for mouse
-    function handleMouseOver(d, i) {
+    function handleMouseOver(event, d) {
       // Add interactivity
+
+      const e = svg.selectAll('circle').nodes();
+      const i = e.indexOf(event.currentTarget);
 
       // Use D3 to select element, change color and size
       d3.select(this)
@@ -307,12 +312,15 @@ export class Testing extends baseChart {
         });
     }
 
-    function handleMouseOut(d, i) {
+    function handleMouseOut(event, d) {
+      const e = svg.selectAll('circle').nodes();
+      const i = e.indexOf(event.currentTarget);
+
       // Use D3 to select element, change color back to normal
       d3.select(this).attr('fill', 'black').attr('r', radius);
 
       // Select text by id and then remove
-      //d3.select('#t' + d.x + '-' + d.y + '-' + i).remove(); // Remove text location
+      d3.select('#t' + d.x + '-' + d.y + '-' + i).remove(); // Remove text location
     }
   }
 }
