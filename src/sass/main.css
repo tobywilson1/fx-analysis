@@ -55,6 +55,23 @@
           justify-content: center;
 }
 
+.console {
+  max-height: 200px;
+  overflow: scroll;
+}
+
+.panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  /*added*/
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  /*added*/
+}
+
 .materialize-red {
   background-color: #e51c23 !important;
 }
