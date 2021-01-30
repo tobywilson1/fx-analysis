@@ -1,3 +1,18 @@
+export class baseChart {
+  constructor(d3, ref) {
+    this.ref = ref;
+    this.d3 = d3;
+  }
+
+  clearSvg() {
+    this.d3.select(this.ref.current).select('svg').remove();
+  }
+
+  // clearElements() {
+  //   this.d3.select(this.ref.current).select('svg').selectAll('*').remove();
+  // }
+}
+
 //function factory for tooltip event handlers
 export function createTooltipEventHandlers(
   d3,
@@ -51,6 +66,5 @@ export function createTooltipEventHandlers(
     d3.select('#t' + d3.timeFormat('%a%d')(d[xAttr]) + '-' + i).remove(); // Remove text location
   }
 
-  console.log([handleMouseOver, handleMouseOut]);
   return [handleMouseOver, handleMouseOut];
 }
