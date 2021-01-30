@@ -30,21 +30,5 @@
         "defaultOptionValue": "GBPUSD"
       }
     ]
-  },
-  "D3testing": {
-    "url": "https://xenodochial-hugle-c67805.netlify.app/.netlify/functions/jsonServer/",
-    "onChangeFunc": "getFx",
-    "defaultValue": "GBPUSD",
-    "chartType": "Testing",
-    "filters": [
-      {
-        "id": 1,
-        "labelText": "FX pair",
-        "optionValues": ["GBPUSD", "GBPEUR"],
-        "inputFieldName": "Filter1",
-        "onChangeFunc": "getFx",
-        "defaultOptionValue": "GBPUSD"
-      }
-    ]
   }
 }

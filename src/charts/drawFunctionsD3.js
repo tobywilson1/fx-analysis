@@ -121,10 +121,10 @@ export class linePlot extends baseChart {
       .scaleLinear()
       .domain([
         d3.min(data, function (d) {
-          return +d.value * 0.9;
+          return +d.value * 0.85;
         }),
         d3.max(data, function (d) {
-          return +d.value * 1.1;
+          return +d.value * 1.15;
         }),
       ])
       .range([height, 0]);
@@ -151,7 +151,7 @@ export class linePlot extends baseChart {
       );
 
     //add circles
-    var radius = 2;
+    var radius = 4;
 
     var circleAttrs = {
       cx: function (d) {
@@ -168,6 +168,7 @@ export class linePlot extends baseChart {
       .data(data)
       .enter()
       .append('circle')
+      .attr('opacity', 0)
       .attr('cx', circleAttrs.cx)
       .attr('cy', circleAttrs.cy)
       .attr('r', circleAttrs.r)
@@ -184,7 +185,8 @@ export class linePlot extends baseChart {
       // Use D3 to select element, change color and size
       d3.select(this)
         .attr('fill', 'orange')
-        .attr('r', radius * 4);
+        .attr('r', radius * 2)
+        .attr('opacity', 1);
 
       // Specify where to put label of text
       svg
@@ -206,7 +208,10 @@ export class linePlot extends baseChart {
       const i = e.indexOf(event.currentTarget);
 
       // Use D3 to select element, change color back to normal
-      d3.select(this).attr('fill', 'black').attr('r', radius);
+      d3.select(this)
+        .attr('fill', 'black')
+        .attr('r', radius)
+        .attr('opacity', 0);
 
       // Select text by id and then remove
       d3.select('#t' + d3.timeFormat('%a%d')(d.date) + '-' + i).remove(); // Remove text location
