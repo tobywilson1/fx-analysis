@@ -115,8 +115,8 @@ export const getFrankfurter = (filterValue) => async (dispatch, getState) => {
       );
 
       let today = new Date();
-      let lastBusinessDay = today.setDate(today.getDate() - 3); //estimated
-      //console.log(formatDate(lastBusinessDay));
+      let lastBusinessDay = today.setDate(today.getDate()); //estimated
+      //console.log(lastBusinessDay);
 
       FX_URL = FX_URL.replace('<currentdate>', formatDate(lastBusinessDay));
 
@@ -216,6 +216,12 @@ export const applyDefaultFilters = () => async (dispatch, getState) => {
     (filter) => filter.id === 1
   ).defaultOptionValue;
   dispatch(UPDATE_FILTER({ filter: 'Filter1', value: filter1DefaultValue }));
+
+  //update filter1 **need to generalise this logic**
+  const filter2DefaultValue = getState().fx.reportConfig.filters.find(
+    (filter) => filter.id === 2
+  )?.defaultOptionValue;
+  dispatch(UPDATE_FILTER({ filter: 'Filter2', value: filter2DefaultValue }));
 
   //****MAY BE NEEDED IN THE FUTURE*****
   //this is only relevant where there is further filtering of report data loaded in the background before the chart is rendered

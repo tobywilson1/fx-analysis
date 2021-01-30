@@ -1,5 +1,15 @@
-.slider-label {
-  margin-bottom: 4rem;
+.slider-label,
+.slider-event-start,
+.slider-event-end {
   font-size: 0.8rem;
   color: #9e9e9e;
+}
+
+.slider-label {
+  margin-bottom: 4rem;
+}
+
+.slider-event-start,
+.slider-event-end {
+  margin: 0.5rem 0;
 }
