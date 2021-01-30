@@ -20,20 +20,17 @@ const FilterInputFieldWrapper = ({ report }) => {
     const id = filter.id;
     const inputType = filter.inputType;
 
-    return (
-      <>
-        {inputType === 'dropdown' && (
-          <FilterInputField
-            key={id}
-            report={report}
-            labelText={labelText}
-            inputFieldValue={inputFieldValue}
-            onChangeFunc={onChangeFunc}
-            optionValues={optionValues}
-          />
-        )}
-        {inputType === 'slider' && <DateRange key={id} />}
-      </>
+    return inputType === 'dropdown' ? (
+      <FilterInputField
+        key={id}
+        report={report}
+        labelText={labelText}
+        inputFieldValue={inputFieldValue}
+        onChangeFunc={onChangeFunc}
+        optionValues={optionValues}
+      />
+    ) : (
+      <DateRange key={id} />
     );
   });
 

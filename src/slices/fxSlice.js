@@ -8,6 +8,7 @@ export const slice = createSlice({
     reportConfig: getReportConfig('FrankBankAPI'),
     Filter1: '',
     Filter2: '',
+    // test: '',
     LastFilterApplied: 'Filter2',
     rawData: null,
     chartData: null,
@@ -19,6 +20,9 @@ export const slice = createSlice({
   },
   //these are the simple actions that work directly on the state
   reducers: {
+    // TEST: (state, action) => {
+    //   state.test = action.payload;
+    // },
     UPDATE_CHART_DATA: (state, action) => {
       state.chartData = action.payload.timeSeries;
       state.loading = false;
@@ -52,6 +56,7 @@ export const slice = createSlice({
 });
 
 export const {
+  TEST,
   GET_FX,
   SET_LOADING,
   FX_ERROR,
