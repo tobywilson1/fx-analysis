@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import noUiSlider from 'materialize-css/extras/noUiSlider/nouislider.min.js';
 import 'materialize-css/extras/noUiSlider/nouislider.css';
 
-const DateRange = () => {
+const DateRange = ({ labelText }) => {
   const sliderRef = useRef(null);
 
   useEffect(() => {
@@ -18,7 +18,12 @@ const DateRange = () => {
     });
   }, []);
 
-  return <div ref={sliderRef} className='col s12 slider'></div>;
+  return (
+    <div className='slider-container'>
+      <p className='slider-label'>{labelText}</p>
+      <div ref={sliderRef} className='col s12'></div>
+    </div>
+  );
 };
 
 export default DateRange;

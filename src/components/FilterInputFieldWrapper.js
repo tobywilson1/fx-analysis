@@ -30,7 +30,7 @@ const FilterInputFieldWrapper = ({ report }) => {
         optionValues={optionValues}
       />
     ) : (
-      <DateRange key={id} />
+      <DateRange key={id} labelText={labelText} />
     );
   });
 

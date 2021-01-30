@@ -76,8 +76,14 @@
   /*added*/
 }
 
-.slider {
-  margin: 2.5rem 0;
+.slider-container {
+  margin: 0 0.75rem 2rem 0.75rem;
+}
+
+.slider-label {
+  margin-bottom: 4rem;
+  font-size: 0.8rem;
+  color: #9e9e9e;
 }
 
 .materialize-red {

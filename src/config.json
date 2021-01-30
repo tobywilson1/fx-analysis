@@ -17,7 +17,7 @@
       },
       {
         "id": 2,
-        "labelText": "Dates",
+        "labelText": "Date range",
         "optionValues": ["2020-10-01", "2020-09-01"],
         "inputFieldName": "Filter2",
         "inputType": "slider",
