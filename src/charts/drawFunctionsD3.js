@@ -170,7 +170,9 @@ export class linePlot extends baseChart {
       svg,
       radius,
       xScale,
-      yScale
+      yScale,
+      'date',
+      'value'
     );
 
     svg
