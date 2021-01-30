@@ -36,11 +36,11 @@
       {
         "id": 1,
         "labelText": "FX pairs",
-        "optionValues": ["EURCHF", "EURGBP"],
+        "optionValues": ["GBPUSD", "GBPEUR", "GBPCHF"],
         "inputFieldName": "Filter1",
         "inputType": "dropdown",
         "urlUpdate": "no",
-        "onChangeFunc": "getFrankfurter",
+        "onChangeFunc": "getFx",
         "defaultOptionValue": "GBPUSD"
       }
     ]

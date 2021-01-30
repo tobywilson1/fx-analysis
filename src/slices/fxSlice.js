@@ -70,12 +70,13 @@ export const getFx = (fxPair) => async (dispatch, getState) => {
     console.log('getFx..');
     //if missing set fxPair to existing fxPair state
     if (!fxPair) {
-      fxPair = getState().fx.fxPair;
+      fxPair = getState().fx.Filter1;
     }
 
     //const FX_URL = getConfig(getState().fx.report, 'url');
     const FX_URL = getState().fx.reportConfig.url;
     const fullURL = `${FX_URL}${fxPair}`;
+    console.log(`Using URL ${fullURL}`);
     const res = await fetch(fullURL);
     const data = await res.json();
 
@@ -83,7 +84,7 @@ export const getFx = (fxPair) => async (dispatch, getState) => {
       dispatch(FX_ERROR(data.status));
     }
 
-    dispatch(UPDATE_CHART_DATA({ fxPair, timeSeries: data.timeSeries }));
+    dispatch(UPDATE_CHART_DATA({ timeSeries: data.timeSeries }));
     //dispatch(UPDATE_FILTER({ filter: 'Filter1', value: fxPair }));
   } catch (error) {
     console.error(String(error));
