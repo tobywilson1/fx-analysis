@@ -153,7 +153,7 @@ export class linePlot extends baseChart {
       );
 
     //add circles
-    var radius = 4;
+    var radius = 6;
 
     var circleAttrs = {
       cx: function (d) {

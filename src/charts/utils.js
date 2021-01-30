@@ -7,11 +7,15 @@ export function createTooltipEventHandlers(d3, svg, radius, xScale, yScale) {
     const e = svg.selectAll('circle').nodes();
     const i = e.indexOf(event.currentTarget);
 
+    var t = d3.transition().duration(400);
+
+    //initially make it small but visible so the animation works
+    d3.select(this).attr('fill', 'orange').attr('r', 0.1).attr('opacity', 1);
+
     // Use D3 to select element, change color and size
     d3.select(this)
-      .attr('fill', 'orange')
-      .attr('r', radius * 2)
-      .attr('opacity', 1);
+      .transition(t)
+      .attr('r', radius * 1.5);
 
     // Specify where to put label of text
     svg
