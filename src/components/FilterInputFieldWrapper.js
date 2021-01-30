@@ -34,6 +34,7 @@ const FilterInputFieldWrapper = ({ report }) => {
         key={id}
         labelText={labelText}
         inputFieldValue={inputFieldValue}
+        onChangeFunc={onChangeFunc}
       />
     );
   });

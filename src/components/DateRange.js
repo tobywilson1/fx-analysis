@@ -64,7 +64,7 @@ function formatDate(date) {
   );
 }
 
-const DateRange = ({ labelText, inputFieldValue }) => {
+const DateRange = ({ labelText, inputFieldValue, onChangeFunc }) => {
   const sliderRef = useRef(null);
   const eventStartRef = useRef(null);
   const eventEndRef = useRef(null);
@@ -99,6 +99,27 @@ const DateRange = ({ labelText, inputFieldValue }) => {
     sliderRef.current.noUiSlider.on('update', function (values, handle) {
       dateValues[handle].innerHTML = formatDate(new Date(+values[handle]));
     });
+
+    function datesUpdated(
+      values,
+      handle,
+      unencoded,
+      tap,
+      positions,
+      noUiSlider
+    ) {
+      // values: Current slider values (array);
+      // handle: Handle that caused the event (number);
+      // unencoded: Slider values without formatting (array);
+      // tap: Event was caused by the user tapping the slider (boolean);
+      // positions: Left offset of the handles (array);
+      // noUiSlider: slider public Api (noUiSlider);
+      const newStartDate = myFormatDate(unencoded[0]);
+      onChangeFunc(newStartDate);
+    }
+
+    // Binding signature
+    sliderRef.current.noUiSlider.on('end', datesUpdated);
   }, []);
 
   useEffect(() => {
