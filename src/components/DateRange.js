@@ -83,6 +83,9 @@ const DateRange = ({ labelText, inputFieldValue }) => {
       // Two more timestamps indicate the handle starting positions.
       start: [timestamp('2019'), timestamp('2020')],
 
+      tooltips: false,
+      connect: true,
+
       // No decimals
       format: wNumb({
         decimals: 0,
