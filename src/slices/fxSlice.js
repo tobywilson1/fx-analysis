@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getReportConfig } from '../utils/getConfig';
+import { getReportConfig, formatDate } from '../utils/utils';
 
 export const slice = createSlice({
   name: 'fx',
@@ -103,10 +103,16 @@ export const getFrankfurter = (filterValue) => async (dispatch, getState) => {
 
       //load all data for all currencies before filtering later on
 
-      const FX_URL = getState().fx.reportConfig.url.replace(
+      let FX_URL = getState().fx.reportConfig.url.replace(
         '<filter2>',
         !getState().fx.rawData ? '2020-11-01' : filterValue
       );
+
+      let today = new Date();
+      let lastBusinessDay = today.setDate(today.getDate() - 3); //estimated
+      //console.log(formatDate(lastBusinessDay));
+
+      FX_URL = FX_URL.replace('<currentdate>', formatDate(lastBusinessDay));
 
       console.log(`Using URL ${FX_URL}`);
       const fullURL = FX_URL;

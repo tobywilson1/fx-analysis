@@ -7,7 +7,7 @@ import { selectReport } from '../slices/fxActions';
 import FilterInputField from './FilterInputField';
 import FilterInputFieldWrapper from './FilterInputFieldWrapper';
 
-import { getConfigReports } from '../utils/getConfig';
+import { getConfigReports } from '../utils/utils';
 const allReports = getConfigReports();
 
 function Filter() {
