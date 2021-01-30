@@ -7,6 +7,8 @@ export const slice = createSlice({
     report: 'FrankBankAPI',
     reportConfig: getReportConfig('FrankBankAPI'),
     Filter1: '',
+    Filter2: '',
+    LastFilterApplied: 'Filter2',
     rawData: null,
     chartData: null,
     chartWidth: 600,
@@ -44,6 +46,7 @@ export const slice = createSlice({
     },
     UPDATE_FILTER: (state, action) => {
       state[action.payload.filter] = action.payload.value;
+      state.LastFilterApplied = action.payload.filter;
     },
   },
 });
@@ -88,44 +91,67 @@ export const getFx = (fxPair) => async (dispatch, getState) => {
   }
 };
 
-export const getFrankfurter = (fxPair) => async (dispatch, getState) => {
+export const getFrankfurter = (filterValue) => async (dispatch, getState) => {
   //debugger;
-  try {
-    dispatch(SET_LOADING());
-    console.log('getFrankfurter..');
-    //const FX_URL = getConfig(getState().fx.report, 'url');
 
-    //load all data for all currencies before filtering later on
-    const FX_URL = getState().fx.reportConfig.url;
-    const fullURL = FX_URL;
-    const res = await fetch(fullURL);
-    let data = await res.json();
+  //only grab data from API on initial report load OR when filter2 (dates) is applied
+  if (getState().fx.LastFilterApplied === 'Filter2' || !getState().fx.rawData) {
+    try {
+      dispatch(SET_LOADING());
+      console.log('running getFrankfurter API fetch and parser..');
+      //const FX_URL = getConfig(getState().fx.report, 'url');
 
-    if (res.status !== 200) {
-      dispatch(FX_ERROR(data.status));
-      return;
+      //load all data for all currencies before filtering later on
+
+      const FX_URL = getState().fx.reportConfig.url.replace(
+        '<filter2>',
+        !getState().fx.rawData ? '2020-11-01' : filterValue
+      );
+
+      console.log(`Using URL ${FX_URL}`);
+      const fullURL = FX_URL;
+
+      const res = await fetch(fullURL);
+      let data = await res.json();
+
+      if (res.status !== 200) {
+        dispatch(FX_ERROR(data.status));
+        return;
+      }
+
+      // parse rawData (testing only)
+      const rawData = data;
+      //console.log(typeof rawData);
+
+      // //save raw results
+      dispatch(SAVE_RAW_DATA(rawData));
+
+      //need to parse the returned object
+      const timeSeries = Object.entries(data.rates).map((dailyData) => [
+        dailyData[0],
+        dailyData[1][getState().fx.Filter1.substring(3)],
+      ]);
+
+      dispatch(UPDATE_CHART_DATA({ timeSeries }));
+    } catch (error) {
+      console.error(String(error));
+      dispatch(FX_ERROR(String(error)));
     }
+  } else if (getState().fx.LastFilterApplied === 'Filter1') {
+    //need to update the chart data from the raw data that's already been stored
+    console.log(
+      'Updating chart data from raw data using supplied currency filter'
+    );
+    const data = getState().fx.rawData;
 
-    // parse rawData (testing only)
-    const rawData = data;
-    //console.log(typeof rawData);
-
-    // //save raw results
-    dispatch(SAVE_RAW_DATA(rawData));
-
-    //need to parse the returned object
     const timeSeries = Object.entries(data.rates).map((dailyData) => [
       dailyData[0],
-      dailyData[1][fxPair.substring(3)],
+      dailyData[1][filterValue.substring(3)],
     ]);
 
-    //rawData.unshift(['date', 'value']);
-
-    dispatch(UPDATE_CHART_DATA({ fxPair, timeSeries }));
-    //dispatch(UPDATE_FILTER({ filter: 'Filter1', value: fxPair }));
-  } catch (error) {
-    console.error(String(error));
-    dispatch(FX_ERROR(String(error)));
+    dispatch(UPDATE_CHART_DATA({ timeSeries }));
+  } else {
+    console.error('Unrecognised condition in function getFrankfurter');
   }
 };
 
@@ -162,9 +188,9 @@ export const applyFilter = (id, value) => async (dispatch, getState) => {
   dispatch(UPDATE_FILTER({ filter: `Filter${id}`, value: value }));
 
   const reportRefreshFunc = getRefreshFunc(getState);
-
+  //debugger;
   console.log(
-    `Refreshing report data via ${reportRefreshFunc.name} with user-entered filter1 value ${value}`
+    `Refreshing report data via ${reportRefreshFunc.name} with user-entered filter${id} value ${value}`
   );
 
   dispatch(reportRefreshFunc(value));

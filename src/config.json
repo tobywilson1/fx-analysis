@@ -1,6 +1,6 @@
 {
   "FrankBankAPI": {
-    "url": "https://api.frankfurter.app/2020-10-01..2021-01-10",
+    "url": "https://api.frankfurter.app/<filter2>..2021-01-10",
     "onChangeFunc": "getFrankfurter",
     "defaultValue": "EURGBP",
     "chartType": "linePlot",
@@ -10,8 +10,20 @@
         "labelText": "FX pairs",
         "optionValues": ["EURCHF", "EURGBP"],
         "inputFieldName": "Filter1",
+        "inputType": "dropdown",
+        "urlUpdate": "no",
         "onChangeFunc": "getFrankfurter",
         "defaultOptionValue": "EURGBP"
+      },
+      {
+        "id": 2,
+        "labelText": "Dates",
+        "optionValues": ["2020-10-01", "2020-09-01"],
+        "inputFieldName": "Filter2",
+        "inputType": "slider",
+        "urlUpdate": "yes",
+        "onChangeFunc": "getFrankfurter",
+        "defaultOptionValue": "2020-10-01"
       }
     ]
   },
@@ -23,10 +35,12 @@
     "filters": [
       {
         "id": 1,
-        "labelText": "FX pair",
-        "optionValues": ["GBPUSD", "GBPEUR"],
+        "labelText": "FX pairs",
+        "optionValues": ["EURCHF", "EURGBP"],
         "inputFieldName": "Filter1",
-        "onChangeFunc": "getFx",
+        "inputType": "dropdown",
+        "urlUpdate": "no",
+        "onChangeFunc": "getFrankfurter",
         "defaultOptionValue": "GBPUSD"
       }
     ]
