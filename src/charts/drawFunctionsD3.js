@@ -1,3 +1,5 @@
+import { createTooltipEventHandlers } from './utils';
+
 export class baseChart {
   constructor(d3, ref) {
     this.ref = ref;
@@ -163,6 +165,14 @@ export class linePlot extends baseChart {
       r: radius,
     };
 
+    const [handleMouseOver, handleMouseOut] = createTooltipEventHandlers(
+      d3,
+      svg,
+      radius,
+      xScale,
+      yScale
+    );
+
     svg
       .selectAll('circle')
       .data(data)
@@ -174,48 +184,6 @@ export class linePlot extends baseChart {
       .attr('r', circleAttrs.r)
       .on('mouseover', handleMouseOver)
       .on('mouseout', handleMouseOut);
-
-    // Create Event Handlers for mouse
-    function handleMouseOver(event, d) {
-      // Add interactivity
-
-      const e = svg.selectAll('circle').nodes();
-      const i = e.indexOf(event.currentTarget);
-
-      // Use D3 to select element, change color and size
-      d3.select(this)
-        .attr('fill', 'orange')
-        .attr('r', radius * 2)
-        .attr('opacity', 1);
-
-      // Specify where to put label of text
-      svg
-        .append('text')
-        .attr('id', 't' + d3.timeFormat('%a%d')(d.date) + '-' + i) // Create an id for text so we can select it later for removing on mouseout
-        .attr('x', function () {
-          return xScale(d.date) - 30;
-        })
-        .attr('y', function () {
-          return yScale(d.value) - 15;
-        })
-        .text(function () {
-          return [d3.timeFormat('%d%b')(d.date), d.value]; // Value of the text
-        });
-    }
-
-    function handleMouseOut(event, d) {
-      const e = svg.selectAll('circle').nodes();
-      const i = e.indexOf(event.currentTarget);
-
-      // Use D3 to select element, change color back to normal
-      d3.select(this)
-        .attr('fill', 'black')
-        .attr('r', radius)
-        .attr('opacity', 0);
-
-      // Select text by id and then remove
-      d3.select('#t' + d3.timeFormat('%a%d')(d.date) + '-' + i).remove(); // Remove text location
-    }
   }
 }
 
