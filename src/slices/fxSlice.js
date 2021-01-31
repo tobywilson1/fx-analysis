@@ -1,24 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getReportConfig, formatDate } from '../utils/utils';
 
+const initialState = {
+  report: 'FrankBankAPI',
+  reportConfig: getReportConfig('FrankBankAPI'),
+  Filter1: '',
+  Filter1OptionValues: [],
+  Filter2: ['', ''],
+  LastFilterApplied: 'Filter2',
+  rawData: null,
+  chartData: null,
+  chartWidth: 600,
+  chartHeight: 400,
+  loading: false,
+  error: null,
+};
+
 export const slice = createSlice({
   name: 'fx',
-  initialState: {
-    report: 'FrankBankAPI',
-    reportConfig: getReportConfig('FrankBankAPI'),
-    Filter1: '',
-    Filter1OptionValues: [],
-    Filter2: ['', ''],
-    // test: '',
-    LastFilterApplied: 'Filter2',
-    rawData: null,
-    chartData: null,
-    chartWidth: 600,
-    chartHeight: 400,
-    current: null,
-    loading: false,
-    error: null,
-  },
+  initialState: initialState,
   //these are the simple actions that work directly on the state
   reducers: {
     // TEST: (state, action) => {
@@ -43,6 +43,10 @@ export const slice = createSlice({
     SELECT_REPORT: (state, action) => {
       state.report = action.payload.report;
       state.reportConfig = action.payload.reportConfig;
+      state.Filter1 = '';
+      state.Filter1OptionValues = [];
+      state.Filter2 = ['', ''];
+      state.LastFilterApplied = 'Filter2';
       state.rawData = null;
       state.chartData = null;
     },
