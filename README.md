@@ -14,6 +14,8 @@ Sources fx data asynchronously from a REST API and displays in a D3 chart based 
 
 - Sources FX data from a REST API via asynchronous requests.
 - D3 chart updates when response is received back.
+- Date slider to adjust dates and trigger new request.
+- Tooltip to interrogate chart data.
 - React component-based UI
 - State management using Redux.
 
