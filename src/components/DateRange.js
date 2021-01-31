@@ -71,7 +71,10 @@ const DateRange = ({ labelText, inputFieldValue, onChangeFunc }) => {
 
   let today = new Date();
   let lastBusinessDay = today.setDate(today.getDate());
-  let endDate = timestamp(myFormatDate(lastBusinessDay));
+  lastBusinessDay = timestamp(myFormatDate(lastBusinessDay));
+  let endDate = !inputFieldValue[1]
+    ? lastBusinessDay
+    : timestamp(inputFieldValue[1]);
 
   useEffect(() => {
     noUiSlider.create(sliderRef.current, {
@@ -119,7 +122,8 @@ const DateRange = ({ labelText, inputFieldValue, onChangeFunc }) => {
       // positions: Left offset of the handles (array);
       // noUiSlider: slider public Api (noUiSlider);
       const newStartDate = myFormatDate(unencoded[0]);
-      onChangeFunc(newStartDate);
+      const newEndDate = myFormatDate(unencoded[1]);
+      onChangeFunc([newStartDate, newEndDate]);
     }
 
     // Binding signature
@@ -127,9 +131,9 @@ const DateRange = ({ labelText, inputFieldValue, onChangeFunc }) => {
   }, []);
 
   useEffect(() => {
-    const startDate = !inputFieldValue
+    const startDate = !inputFieldValue[0]
       ? timestamp('2019-01-01')
-      : timestamp(inputFieldValue);
+      : timestamp(inputFieldValue[0]);
     //console.log([startDate, endDate]);
     sliderRef.current.noUiSlider.set([startDate, endDate]);
   }, [inputFieldValue]);

@@ -23,7 +23,7 @@
         "inputType": "slider",
         "urlUpdate": "yes",
         "onChangeFunc": "getFrankfurter",
-        "defaultOptionValue": "2020-10-01"
+        "defaultOptionValue": ["2020-10-01", ""]
       }
     ]
   },

@@ -7,7 +7,7 @@ export const slice = createSlice({
     report: 'FrankBankAPI',
     reportConfig: getReportConfig('FrankBankAPI'),
     Filter1: '',
-    Filter2: '',
+    Filter2: ['', ''],
     // test: '',
     LastFilterApplied: 'Filter2',
     rawData: null,
@@ -111,14 +111,17 @@ export const getFrankfurter = (filterValue) => async (dispatch, getState) => {
 
       let FX_URL = getState().fx.reportConfig.url.replace(
         '<filter2>',
-        !getState().fx.rawData ? '2020-11-01' : filterValue
+        !getState().fx.rawData ? '2020-11-01' : filterValue[0]
       );
 
       let today = new Date();
       let lastBusinessDay = today.setDate(today.getDate()); //estimated
       //console.log(lastBusinessDay);
 
-      FX_URL = FX_URL.replace('<currentdate>', formatDate(lastBusinessDay));
+      FX_URL = FX_URL.replace(
+        '<currentdate>',
+        !getState().fx.rawData ? formatDate(lastBusinessDay) : filterValue[1]
+      );
 
       console.log(`Using URL ${FX_URL}`);
       const fullURL = FX_URL;
