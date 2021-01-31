@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Filter from './components/Filter';
 import Console from './components/Console';
 import M from 'materialize-css/dist/js/materialize.min.js';
+import 'materialize-css/dist/css/materialize.css';
 import { refreshReport } from './slices/fxActions';
 import { useDispatch } from 'react-redux';
 

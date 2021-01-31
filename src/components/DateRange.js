@@ -69,19 +69,12 @@ const DateRange = ({ labelText, inputFieldValue, onChangeFunc }) => {
   const eventStartRef = useRef(null);
   const eventEndRef = useRef(null);
 
-  let today = new Date();
-  let lastBusinessDay = today.setDate(today.getDate());
-  lastBusinessDay = timestamp(myFormatDate(lastBusinessDay));
-  let endDate = !inputFieldValue[1]
-    ? lastBusinessDay
-    : timestamp(inputFieldValue[1]);
-
   useEffect(() => {
     noUiSlider.create(sliderRef.current, {
       // Create two timestamps to define a range.
       range: {
         min: timestamp('2019'),
-        max: endDate,
+        max: timestamp('2020'),
       },
 
       // Steps of one week
@@ -128,12 +121,20 @@ const DateRange = ({ labelText, inputFieldValue, onChangeFunc }) => {
 
     // Binding signature
     sliderRef.current.noUiSlider.on('end', datesUpdated);
-  }, []);
+  }, [onChangeFunc]);
 
   useEffect(() => {
     const startDate = !inputFieldValue[0]
       ? timestamp('2019-01-01')
       : timestamp(inputFieldValue[0]);
+
+    let today = new Date();
+    let lastBusinessDay = today.setDate(today.getDate());
+    lastBusinessDay = timestamp(myFormatDate(lastBusinessDay));
+    let endDate = !inputFieldValue[1]
+      ? lastBusinessDay
+      : timestamp(inputFieldValue[1]);
+
     //console.log([startDate, endDate]);
     sliderRef.current.noUiSlider.set([startDate, endDate]);
   }, [inputFieldValue]);
