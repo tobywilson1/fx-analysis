@@ -7,6 +7,7 @@ export const slice = createSlice({
     report: 'FrankBankAPI',
     reportConfig: getReportConfig('FrankBankAPI'),
     Filter1: '',
+    Filter1OptionValues: [],
     Filter2: ['', ''],
     // test: '',
     LastFilterApplied: 'Filter2',
@@ -52,6 +53,9 @@ export const slice = createSlice({
       state[action.payload.filter] = action.payload.value;
       state.LastFilterApplied = action.payload.filter;
     },
+    UPDATE_OPTION_VALUES: (state, action) => {
+      state.Filter1OptionValues = action.payload;
+    },
   },
 });
 
@@ -65,6 +69,7 @@ export const {
   SAVE_RAW_DATA,
   UPDATE_CHART_DATA,
   UPDATE_FILTER,
+  UPDATE_OPTION_VALUES,
 } = slice.actions;
 
 // Thunk functions with async logic for parsing API data
@@ -142,12 +147,19 @@ export const getFrankfurter = (filterValue) => async (dispatch, getState) => {
       dispatch(SAVE_RAW_DATA(rawData));
 
       //need to parse the returned object
-      const timeSeries = Object.entries(data.rates).map((dailyData) => [
+      const timeSeries = Object.entries(rawData.rates).map((dailyData) => [
         dailyData[0],
         dailyData[1][getState().fx.Filter1.substring(3)],
       ]);
 
       dispatch(UPDATE_CHART_DATA({ timeSeries }));
+
+      const firstDatesData = rawData.rates[Object.keys(rawData.rates)[0]];
+      const ccyList = Object.keys(firstDatesData).map((ccy) => 'EUR' + ccy);
+
+      //console.log(ccyList);
+      console.log('Updating Filter1 dropdown list with ccy pairs..');
+      dispatch(UPDATE_OPTION_VALUES([...ccyList]));
     } catch (error) {
       console.error(String(error));
       dispatch(FX_ERROR(String(error)));
@@ -220,19 +232,11 @@ export const applyDefaultFilters = () => async (dispatch, getState) => {
   ).defaultOptionValue;
   dispatch(UPDATE_FILTER({ filter: 'Filter1', value: filter1DefaultValue }));
 
-  //update filter1 **need to generalise this logic**
+  //update filter2 **need to generalise this logic**
   const filter2DefaultValue = getState().fx.reportConfig.filters.find(
     (filter) => filter.id === 2
   )?.defaultOptionValue;
   dispatch(UPDATE_FILTER({ filter: 'Filter2', value: filter2DefaultValue }));
-
-  //****MAY BE NEEDED IN THE FUTURE*****
-  //this is only relevant where there is further filtering of report data loaded in the background before the chart is rendered
-  // const reportRefreshFunc = getRefreshFunc(getState);
-  // console.log(
-  //   `Refreshing report data via ${reportRefreshFunc.name} with default filter1 value ${filter1DefaultValue}`
-  // );
-  // dispatch(reportRefreshFunc(filter1DefaultValue));
 };
 
 //Select report

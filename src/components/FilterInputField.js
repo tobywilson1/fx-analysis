@@ -13,7 +13,7 @@ const FilterInputField = ({
   useEffect(() => {
     //Init Materialize JS
     M.FormSelect.init(selectRef.current);
-  }, [inputFieldValue, report]);
+  }, [inputFieldValue, report, optionValues]);
 
   const onChange = async (e) => {
     onChangeFunc(e.target.value);

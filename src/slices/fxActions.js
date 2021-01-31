@@ -7,6 +7,7 @@ export {
   SELECT_REPORT,
   SAVE_RAW_DATA,
   UPDATE_FILTER,
+  UPDATE_OPTION_VALUES,
   getFx,
   getFrankfurter,
   updateChartDims,
