@@ -100,6 +100,7 @@ export class linePlot extends baseChart {
 
     const [handleMouseOver, handleMouseOut] = createTooltipEventHandlers(
       d3,
+      ref,
       svg,
       radius,
       xScale,

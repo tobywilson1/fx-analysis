@@ -16,6 +16,7 @@ export class baseChart {
 //function factory for tooltip event handlers
 export function createTooltipEventHandlers(
   d3,
+  ref,
   svg,
   radius,
   xScale,
@@ -33,7 +34,8 @@ export function createTooltipEventHandlers(
     var t = d3.transition().duration(400);
 
     const target = this;
-    orangeToolip_MouseOver(target, d, i, t);
+    div_MouseOver(target, event, d, i, t);
+    //orangeToolip_MouseOver(target, d, i, t);
   }
 
   function handleMouseOut(event, d) {
@@ -41,7 +43,8 @@ export function createTooltipEventHandlers(
     const i = e.indexOf(event.currentTarget);
 
     const target = this;
-    orangeToolip_MouseOut(target, d, i);
+    div_MouseOut(target, event, d, i);
+    //orangeToolip_MouseOut(target, d, i);
   }
 
   // Specific tool tip styles
@@ -81,5 +84,38 @@ export function createTooltipEventHandlers(
     d3.select('#t' + d3.timeFormat('%a%d')(d[xAttr]) + '-' + i).remove(); // Remove text location
   }
 
+  function div_MouseOver(target, event, d, i, t) {
+    var u = d3.select(ref.current).selectAll('.tooltip').data(['1']);
+
+    u.enter()
+      .append('div')
+      .attr('class', 'tooltip')
+      .html(
+        'The exact value of<br>this cell is: ' +
+          `${d3.timeFormat('%d%b')(d[xAttr])} ${d[yAttr]}`
+      )
+      .style('position', 'absolute')
+      .style('background-color', 'white')
+      .style('border', 'solid')
+      .style('border-width', '2px')
+      .style('border-radius', '5px')
+      .style('padding', '5px')
+      .style('opacity', 1)
+      .style('left', Math.round(event.pageX) - 30 + 'px')
+      .style('top', Math.round(event.pageY) - 15 + 'px');
+
+    console.log(d3.pointer(event));
+    console.log(d3.select(ref.current).selectAll('.tooltip').size());
+  }
+
+  function div_MouseOut(target, event, d, i) {
+    d3.select(ref.current).selectAll('.tooltip').remove();
+  }
+
   return [handleMouseOver, handleMouseOut];
 }
+
+// function getPos(el) {
+//   const position = document.querySelector(el).getBoundingClientRect();
+//   return position;
+// }
