@@ -98,7 +98,7 @@ export class linePlot extends baseChart {
       r: radius,
     };
 
-    const [handleMouseOver, handleMouseOut] = createTooltipEventHandlers(
+    const [handleMouseEnter, handleMouseLeave] = createTooltipEventHandlers(
       d3,
       ref,
       svg,
@@ -114,11 +114,14 @@ export class linePlot extends baseChart {
       .data(data)
       .enter()
       .append('circle')
+      .attr('id', function (d) {
+        return d3.timeFormat('%d%b')(d.date);
+      })
       .attr('opacity', 0)
       .attr('cx', circleAttrs.cx)
       .attr('cy', circleAttrs.cy)
       .attr('r', circleAttrs.r)
-      .on('mouseover', handleMouseOver)
-      .on('mouseout', handleMouseOut);
+      .on('mouseenter', handleMouseEnter)
+      .on('mouseleave', handleMouseLeave);
   }
 }
