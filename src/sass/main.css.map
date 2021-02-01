@@ -13,7 +13,8 @@
         "components/_panel.scss",
         "components/_slider.scss",
         "components/_slider-container.scss",
-        "components/_slider-label.scss"
+        "components/_slider-label.scss",
+        "components/_tooltip.scss"
     ],
     "names": [],
     "file": "main.css"

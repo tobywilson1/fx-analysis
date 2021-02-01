@@ -32,11 +32,25 @@ export function createTooltipEventHandlers(
 
     var t = d3.transition().duration(400);
 
+    const target = this;
+    orangeToolip_MouseOver(target, d, i, t);
+  }
+
+  function handleMouseOut(event, d) {
+    const e = svg.selectAll('circle').nodes();
+    const i = e.indexOf(event.currentTarget);
+
+    const target = this;
+    orangeToolip_MouseOut(target, d, i);
+  }
+
+  // Specific tool tip styles
+  function orangeToolip_MouseOver(target, d, i, t) {
     //initially make it small but visible so the animation works
-    d3.select(this).attr('fill', 'orange').attr('r', 0.1).attr('opacity', 1);
+    d3.select(target).attr('fill', 'orange').attr('r', 0.1).attr('opacity', 1);
 
     // Use D3 to select element, change color and size
-    d3.select(this)
+    d3.select(target)
       .transition(t)
       .attr('r', radius * 1.5);
 
@@ -50,17 +64,18 @@ export function createTooltipEventHandlers(
       .attr('y', function () {
         return yScale(d[yAttr]) - 15;
       })
+      .attr('class', 'tooltip')
       .text(function () {
-        return [d3.timeFormat('%d%b')(d[xAttr]), d[yAttr]]; // Value of the text
+        return `${d3.timeFormat('%d%b')(d[xAttr])} ${d[yAttr]}`; // Value of the text
       });
   }
 
-  function handleMouseOut(event, d) {
-    const e = svg.selectAll('circle').nodes();
-    const i = e.indexOf(event.currentTarget);
-
+  function orangeToolip_MouseOut(target, d, i) {
     // Use D3 to select element, change color back to normal
-    d3.select(this).attr('fill', 'black').attr('r', radius).attr('opacity', 0);
+    d3.select(target)
+      .attr('fill', 'black')
+      .attr('r', radius)
+      .attr('opacity', 0);
 
     // Select text by id and then remove
     d3.select('#t' + d3.timeFormat('%a%d')(d[xAttr]) + '-' + i).remove(); // Remove text location
